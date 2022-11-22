@@ -1,8 +1,15 @@
 # database project
-# export FLASK_APP = flaskr
-# export FLASK_ENV = development
-# flask init-db
-# flask run
+export FLASK_APP = flaskr
+export FLASK_ENV = development
+flask init-db
+flask run
+#### 删除
+git pull
+在本地删除
+git add .
+git commit
+git push -u origin master
+不匹配时，git checkout .
 #### 介绍
 {**以下是 Gitee 平台说明，您可以替换此简介**
 Gitee 是 OSCHINA 推出的基于 Git 的代码托管平台（同时支持 SVN）。专为开发者提供稳定、高效、安全的云端软件开发协作平台
