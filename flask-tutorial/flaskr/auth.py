@@ -83,11 +83,10 @@ def logout():
     return redirect(url_for('index'))
 #用户登录以后才能创建、编辑和删除博客帖子。在每个视图中可以使用装饰器来完成这个工作,装饰器返回一个新的视图，该视图包含了传递给装饰器的原视图。新的函数检查用户是否已载入。如果已载入，那么就继续正常执行原视图，否则就重定向到登录页面。我们会在博客视图中使用这个装饰器
 def login_required(view):
-    @functools.wraps(view)
+    @functools.wraps(view)    #在编写装饰器时，在实现前加入@functools.wraps(func)可以保证装饰器不会对被装饰函数造成影响
     def wrapped_view(**kwargs):
-        if g.user is None:
+        if g.user is None:       #如果用户没有登陆，就返回到登陆界面
             return redirect(url_for('auth.login'))
-
         return view(**kwargs)
 
     return wrapped_view
