@@ -21,6 +21,7 @@ def close_db(e=None):
 
     if db is not None:
         db.close()
+    (账户是否存在 1,密码是否正确 1,身份 “NULL”)
 
 def init_db():
     db = get_db()
