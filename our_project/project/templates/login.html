@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>登录页面</title>
+
+    <link rel="stylesheet" type="text/css" href="login.css" />
+
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="header">疫情管理系统</h1>
+
+        <div id="login_frame">
+
+            <form method="post" action="login">
+                <p><label class="label_input">用户名</label><input type="text" name="account" id="L_username"
+                        class="text_field" /></p>
+                <p><label class="label_input">密码</label><input type="password" name="password" id="L_password"
+                        class="text_field" /></p>
+
+                <div id="login_control">
+                    <button id="btn_login" style="cursor:pointer" type="submit" onclick="Message()">登录</button>
+
+                    <input type="hidden" name="next" value="" id="skip">
+                    <a id="forget_pwd" href="forget_pwd.html">忘记密码？</a>
+                </div>
+            </form>
+        </div>
+
+
+    </div>
+
+</body>
+
+</html>
