@@ -32,11 +32,11 @@ def login():
             session.clear()
             session['account'] = account
             if check_result == 'medical staff':
-                return redirect(url_for('medicalmain'))  
+                return redirect(url_for('medical.medicalmain'))  
             if check_result == 'street manager': 
-                return redirect(url_for('streetmain'))
+                return redirect(url_for('street.streetmain'))
             if check_result == 'CDC staff':
-                return redirect(url_for('CDCmain'))
+                return redirect(url_for('CDC.CDCmain'))
         flash(error)
     return render_template('auth/login.html')          #返回登录页面
 @bp.before_app_request
