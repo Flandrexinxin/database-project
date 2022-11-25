@@ -15,8 +15,12 @@
 * 查询页面4：输入病例的检测编号，根据其居住地排 查检测时间前后7天的密接人群
 * 查询页面5：输入病例的身份证号以及排查的时间范围，查询与该病例在指定时间范围内密接的人员
 ### 明确需要后端完成封装的功能函数
-* 登陆页面：在数据库中比对username和password，附带加密功能。如果用户不存在，返回return "Not Exists"；如果用户存在但密码输入错误，return "Wrong"；如果用户存在且密码输入正确，return 用户类型。
+* check_account(account,password)：在数据库中比对username和password，附带加密功能。如果用户不存在，返回return "Not Exists"；如果用户存在但密码输入错误，return "Wrong"；如果用户存在且密码输入正确，return 用户类型。
 * 按照时间范围或所在的相关街道，查询阳性病例
+* get_resident_info_name(name)：通过姓名查找居民信息
+* get_resident_info_identity(identity)：通过身份证号查找居民信息
+* get_resident_info_region(region)：查找某一区域的情况【来源于我们的需求分析里为疾控中心工作人员实现的权限，具体返回什么我也不是很确定】
+
 ## 后端
 ### 在什么场景下需要后端提供什么数据
 ### 设计基本表是否考虑了范式

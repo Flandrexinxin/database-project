@@ -4,7 +4,7 @@ from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
 from db.py import (
-    check,get_user_tuple
+    check_account,get_user_tuple
 ) 
 # from werkzeug.security import check_password_hash, generate_password_hash
 
@@ -23,7 +23,7 @@ def login():
         # user = db.execute(
         #    'SELECT * FROM user WHERE username = ?', (username,)
         # ).fetchone() 
-        check_result = check(account,password)
+        check_result = check_account(account,password)
         if check_result == 'Not Exists':
             error = 'Incorrect account.'
         elif check_result == 'Wrong':
