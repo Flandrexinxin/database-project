@@ -13,7 +13,8 @@ def get_db():
         user='root',
         password='123456',
         db='six_crew',
-        charset='utf8'
+        #charset='utf8',
+        auth_plugin='mysql_native_password'
     )
     return conn  #establish link
 
@@ -59,8 +60,6 @@ def check_account(account, password):  # check whether account is in database an
         return "Not Exists"
     else:
         if check_password_hash(ret[0][1], password) == True:  # correct password
-            return 'CDC staff'
+            return ret[0][2]
         else:  # incorrect password
-            return "Wrong"
-
-
+            return "wrong"
