@@ -105,3 +105,19 @@ form p > * {
 #login_control {
     padding: 0 28px;
 }
+
+.flash_message{
+    background-color: #fea58d;
+    margin: auto;
+	position: absolute;
+	top: 10;
+	left: 0;
+	right: 0;
+	bottom: 10;
+    font-size: 16px;
+  
+
+    width: 400px;
+    height: 10px;
+    padding: 13px;
+}
