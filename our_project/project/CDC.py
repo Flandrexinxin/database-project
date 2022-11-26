@@ -8,7 +8,7 @@ from db.py import(
 )
 bp = Blueprint('CDC', __name__)
 
-@bp.route('/main',method = ('GET', 'POST'))
+@bp.route('/CDC/main',method = ('GET', 'POST'))
 @login_required
 def CDCmain():
     return render_template('CDC/main.html',posts=posts)
