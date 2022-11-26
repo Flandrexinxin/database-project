@@ -24,7 +24,7 @@
 * 按照时间范围或所在的相关街道，查询阳性病例
 * get_resident_info_name(name)：通过姓名查找居民信息
 * get_resident_info_identity(identity)：通过身份证号查找居民信息
-* get_resident_info_region(region)：查找某一区域的情况【来源于我们的需求分析里为疾控中心工作人员实现的权限，具体返回什么我也不是很确定】
+* get_resident_info_region(region,rtype)：查找某一区域的全部居民信息，region为街道或者小区名称，rtype为region的类型(street,community)，street为街道，community为小区。
 
 ## 后端
 ### 在什么场景下需要后端提供什么数据
