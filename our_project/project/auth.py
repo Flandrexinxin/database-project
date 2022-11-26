@@ -40,7 +40,7 @@ def login():
                 return redirect(url_for('street.streetmain'))
             if check_result == 'CDC staff':
                 return redirect(url_for('CDC.CDCmain'))
-            if check_result == 'database administrator':
+            if check_result == 'super manager':
                 return redirect(url_for('DB_administrator.DBmain'))
         flash(error)
     print('hi')
