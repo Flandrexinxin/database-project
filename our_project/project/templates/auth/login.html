@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>登录页面</title>
 
-    <link rel="stylesheet" type="text/css" href="../../static/login.css" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = '../../static/login.css') }}" />
 
 </head>
 
@@ -27,9 +27,23 @@
                     <input type="hidden" name="next" value="" id="skip">
                     <a id="forget_pwd" href="forget_pwd.html">忘记密码？</a>
                 </div>
+                
+                
+
             </form>
         </div>
-
+        <div>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    
+                    {% for message in messages %}
+                      <p class="flash_message" align="center"> {{ message }}</p> 
+                    {% endfor %}
+                    
+                {% endif %}
+            {% endwith %}
+        </div>
+        
 
     </div>
 
