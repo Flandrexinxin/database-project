@@ -22,11 +22,8 @@ def inquire():
         region = request.form['region'] 
         error = None
 
-        if name is None and identity is None and region is None:
+        if len(name) == 0 and len(identity) == 0 and len(region) == 0:
             error = '请输入所查询信息'
-        
-        if error is not None:
-            flash(error)
         elif identity is None and region is None:
             resident_info = get_resident_info_name(name)
         elif name is None and region is None:
@@ -35,7 +32,6 @@ def inquire():
             resident_info = get_resident_info_region(region)
         else:
             error = '仅可选择一种查询方式,请保持其他输入框空白'
-            flash(error)
-
+        
 
 

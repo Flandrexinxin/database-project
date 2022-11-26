@@ -63,3 +63,14 @@ def check_account(account, password):  # check whether account is in database an
             return ret[0][2]
         else:  # incorrect password
             return "wrong"
+
+def get_user_tuple(account):
+    conn = get_db()
+    db = conn.cursor()
+
+    sql = 'select * from staff where account="%s"' % (account)
+    db.execute(sql)
+    ret = db.fetchall()
+    db.close()
+    close_db(conn)
+    return ret

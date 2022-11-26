@@ -4,7 +4,7 @@ from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
 from project.db import (
-    check_account
+    check_account, get_user_tuple
 ) 
 # from werkzeug.security import check_password_hash, generate_password_hash
 
@@ -16,21 +16,23 @@ bp = Blueprint('auth', __name__, url_prefix='/auth')  # auth：蓝图名字,url_
 @bp.route('/login', methods=('GET', 'POST'))
 def login():
     if request.method == 'POST':
+        account = ""
+        password = ""
         account = request.form['account']
         password = request.form['password']
         print(account,password)
         error = None 
-        if account is None:
-            error = 'Incorrect username.'
-        elif password is None:
+        if account=="":
+            error = 'account is empty.'
+        elif password=="":
             error = 'password is empty.'
         else:
             check_result = check_account(account,password)
+            print(check_result)
             if check_result == 'Not Exists':
-                error = 'Incorrect account.'
-            elif check_result == 'Wrong':
+                error = 'Account not exists.'
+            elif check_result == 'wrong':
                 error = 'Incorrect password.'
-        print(check_result)
         if error is None:
             session.clear()
             session['account'] = account
@@ -40,10 +42,9 @@ def login():
                 return redirect(url_for('street.streetmain'))
             if check_result == 'CDC staff':
                 return redirect(url_for('CDC.CDCmain'))
-            if check_result == 'super manager':
+            if check_result == 'database administrator':
                 return redirect(url_for('DB_administrator.DBmain'))
         flash(error)
-    print('hi')
     return render_template('auth/login.html')          #返回登录页面
 @bp.before_app_request
 def load_logged_in_user():
@@ -51,7 +52,7 @@ def load_logged_in_user():
     if user_account is None:
         g.user = None
     else:
-        g.user = get_user_tuple(user_id)
+        g.user = get_user_tuple(user_account)
 #用户登录以后才能创建、编辑和删除博客帖子。在每个视图中可以使用装饰器来完成这个工作,装饰器返回一个新的视图，该视图包含了传递给装饰器的原视图。新的函数检查用户是否已载入。如果已载入，那么就继续正常执行原视图，否则就重定向到登录页面。我们会在博客视图中使用这个装饰器
 def login_required(view):
     @functools.wraps(view)    #在编写装饰器时，在实现前加入@functools.wraps(func)可以保证装饰器不会对被装饰函数造成影响
