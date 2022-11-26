@@ -26,11 +26,41 @@ CDC/inquire：这个页面实现疾控中心工作人员对居民信息的查询
 * 查询页面4：输入病例的检测编号，根据其居住地排 查检测时间前后7天的密接人群
 * 查询页面5：输入病例的身份证号以及排查的时间范围，查询与该病例在指定时间范围内密接的人员
 ### 明确需要后端完成封装的功能函数
-* check_account(account,password)：在数据库中比对username和password，附带加密功能。如果用户不存在，返回return "Not Exists"；如果用户存在但密码输入错误，return "Wrong"；如果用户存在且密码输入正确，return 用户类型。
-* 按照时间范围或所在的相关街道，查询阳性病例
-* get_resident_info_name(name)：通过姓名查找居民信息
-* get_resident_info_identity(identity)：通过身份证号查找居民信息
-* get_resident_info_region(region,rtype)：查找某一区域的全部居民信息，region为街道或者小区名称，rtype为region的类型(street,community)，street为街道，community为小区。
+
+#### 基础函数
+* get_db()：连接数据库，返回一个与数据库建立的链接。
+* close_db(conn):断开与数据库的连接，输入以上建立的链接，无返回值。
+* get_user_tuple(account)
+
+#### 超级管理员函数
+* add_staff(new_account,staff_type,street='NULL')：将管理人员信息传入数据库中，依次输入管理员信息列表，管理员类型（类型包括：super manager,medical staff,street manager,CDC staff），所管理的街道（默认为NULL）；无返回值
+* create_password(amount)：创建规定数量的管理人员账号和密码，输入要创建的数量，输出一个包含若干元组的列表，每个元组包含账号、密码。
+* check_account(account,password)：检查输入的账号密码是否正确匹配，输入要登录的账号和密码，当输入账号错误时，输出"Not Exists"；当输入账号正确，密码错误时，输出"wrong"；当输入账号密码均正确时，输出管理员类型的字符串（类型包括：super manager,medical staff,street manager,CDC staff）
+
+#### 查询函数
+* get_ill_info_street(street)：查询所给街道的阳性病例，输入街道的名字，返回一个包含n个元组的列表，每个元组包含一条居民信息。
+* get_ill_info_time(begin_time,end_time)：查询在给定时间范围（输入时间类型为年月日时分，例"2022-08-09 20:50"）内检测出阳性的病例的居民信息，输入开始时间和截止时间，返回一个包含n个元组的列表，每个元组包含一条居民信息。
+* get_resident_info_name(name)：通过姓名查找居民信息。返回结果同上。
+* get_resident_info_identity(identity)：通过身份证号查找居民信息。返回结果同上。
+* get_resident_info_region(region,rtype)：查找某一区域的全部居民信息，region为街道或者小区名称，rtype为region的类型(street,community)，street为街道，community为小区。返回结果同上。
+* get_close_location(id,begin_time,end_time)：给定阳性病例身份证号和时间段，查询在该时间段内与给定病例到达过同一场所的居民信息，输入阳性病例身份证号和一个时间范围（年月日时分，例"2022-06-04 13:42"），返回一个包含n个元组的列表，每个元组包含一条居民信息。
+* get_close_region(test_id)：输入阳性病例的检测编号，查询在病例检测时间前后7天内，与病例在同一街道/小区居住的人员。返回结果同上。
+
+#### 其他功能函数
+* medical_check(pID,datetime,result,tID)：检查核酸检测结果格式是否正确。正确返回True，否则返回False。正确示例：（'206711200412231678', '2022-09-19 17:34:00', '阳性', '1761533951'）。pID长度为11的char型，result长度为4的char型("阳性","阴性")，tID长度为10的char型。
+* medical_typein(pID,date_time,result,sample_num)：核酸检测结果录入，输入身份证号、检测时间、检测结果、检测编号，返回True表示录入成功，返回False表示输入的检测号表中已存在。
+* medical_cover(pID,date_time,result,sample_num)：检测号原本已经在表中存在的情况下，覆盖该行数据，输入身份证号、检测时间、检测结果、检测编号，无返回。
+
+#### 插入函数
+* single_insert_na_test_results(id,test_time,result,test_id)：插入单条核酸检测结果信息
+* single_insert_Scan_code_info(place_id,id,enter_time)：插入单条场所码扫码信息
+* single_insert_Residence_info(id,name,tele_number,sex,birthday,community,enter_date,out_date)：插入单条居民居住信息
+* single_insert_Location_info(name,place_id,street,manager,tele_number)：插入单条小区/场所信息
+* csv_insert_na_test_results(path)：从csv中批量导入核酸检测结果信息。path为csv文件的存储路径。
+* csv_insert_Scan_code_info(path)：从csv中批量导入场所码扫码信息。path为csv文件的存储路径。
+* csv_insert_Residence_info(path)：从csv中批量导入居民居住信息。path为csv文件的存储路径。
+* csv_insert_Location_info(path)：从csv中批量导入小区/场所信息。path为csv文件的存储路径。
+
 
 ## 后端
 ### 在什么场景下需要后端提供什么数据
