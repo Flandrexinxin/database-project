@@ -3,8 +3,8 @@ import functools
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
-from db.py import (
-    check_account,get_user_tuple
+from project.db import (
+    check_account
 ) 
 # from werkzeug.security import check_password_hash, generate_password_hash
 
@@ -18,11 +18,8 @@ def login():
     if request.method == 'POST':
         account = request.form['account']
         password = request.form['password']
-        db = get_db()
-        error = None
-        # user = db.execute(
-        #    'SELECT * FROM user WHERE username = ?', (username,)
-        # ).fetchone() 
+        # db = get_db()
+        error = None 
         check_result = check_account(account,password)
         if check_result == 'Not Exists':
             error = 'Incorrect account.'
@@ -36,8 +33,10 @@ def login():
             if check_result == 'street manager': 
                 return redirect(url_for('street.streetmain'))
             if check_result == 'CDC staff':
+                print(check_result)
                 return redirect(url_for('CDC.CDCmain'))
         flash(error)
+    print('hi')
     return render_template('auth/login.html')          #返回登录页面
 @bp.before_app_request
 def load_logged_in_user():

@@ -59,8 +59,8 @@ def check_account(account, password):  # check whether account is in database an
         return "Not Exists"
     else:
         if check_password_hash(ret[0][1], password) == True:  # correct password
-            return ret[0][2]
+            return 'CDC staff'
         else:  # incorrect password
-            return "wrong"
+            return "Wrong"
 
 
