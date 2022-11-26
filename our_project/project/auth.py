@@ -12,10 +12,11 @@ from project.db import (
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')  # auth：蓝图名字,url_prefix会添加到所有与该蓝图关联的URL前面
 
-#登录视图 关联URL/login和login函数
+#登录视图 关联URL和login函数
 @bp.route('/login', methods=('GET', 'POST'))
 def login():
     if request.method == 'POST':
+        print('hello')
         account = request.form['account']
         password = request.form['password']
         # db = get_db()
