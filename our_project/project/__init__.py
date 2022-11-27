@@ -31,8 +31,6 @@ def create_app(test_config=None):
     # a simple page that says hello
     from . import auth
     app.register_blueprint(auth.bp)
-    #from . import db
-    #db.init_app(app)
     from . import CDC
     app.register_blueprint(CDC.bp)
     app.add_url_rule('/',endpoint='login')

@@ -15,11 +15,13 @@ bp = Blueprint('CDC', __name__)
 @login_required
 def CDCmain():
     print("CDC I'm coming!")
+    print("why?")
+    print(url_for('CDC.CDCinquire_resident'))
     return render_template('CDC/main.html')
 # 通过姓名、身份证号等查找居民信息，或者浏览某一区域的情况
-@bp.route('/CDC/inquire',methods=('GET','POST'))
+@bp.route('/CDC/CDCinquire_resident',methods=('GET','POST'))
 @login_required 
-def inquire():
+def CDCinquire_resident():
     if request.method == 'POST':
         name = request.form['name']
         identity = request.form['identity']
@@ -39,3 +41,9 @@ def inquire():
         if error is None:
             length = len(resident_info)
             return render_template('auth/login.html',length=length,resident_info=resident_info)  
+    return render_template('auth/CDCinquire_resident.html') 
+@bp.route('/CDC/CDCinquire_resident',methods=('GET','POST'))
+@login_required 
+def CDCinquire_positive():
+     
+    return render_template('auth/CDCinquire_positive.html') 
