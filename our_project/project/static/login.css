@@ -15,22 +15,16 @@ body {
     color: #044b26;
 }
 
+#container{
+    display:flex;
+  
+}
+
 #login_frame {
 
+    flex: 1; 
 
-	margin: auto;
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-
-    width: 400px;
-    height: 160px;
-    padding: 13px;
- 
    
-
  
     background-color: rgba(192, 232, 180, 0.5);
  
@@ -55,15 +49,13 @@ form p > * {
  
     color: white;
     background-color: #08772b;
-    border-top-left-radius: 0px;
-    border-bottom-left-radius: 0px;
+    border-radius: 10px;
 }
  
 .text_field {
     width: 278px;
     height: 28px;
-    border-top-right-radius: 0px;
-    border-bottom-right-radius: 0px;
+    border-radius: 10px;
     border: 0;
 }
  
@@ -107,17 +99,9 @@ form p > * {
 }
 
 .flash_message{
-    background-color: #fea58d;
-    margin: auto;
-	position: absolute;
-	top: 10;
-	left: 0;
-	right: 0;
-	bottom: 10;
-    font-size: 16px;
-  
+    background-color: #f9bfaf;
+    
+    box-shadow: 0px 1px 4px #f7d2d2;
+    border-radius: 5px;
 
-    width: 400px;
-    height: 10px;
-    padding: 13px;
 }
