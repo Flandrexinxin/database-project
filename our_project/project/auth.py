@@ -16,23 +16,16 @@ bp = Blueprint('auth', __name__, url_prefix='/auth')  # auth：蓝图名字,url_
 @bp.route('/login', methods=('GET', 'POST'))
 def login():
     if request.method == 'POST':
-        account = ""
-        password = ""
         account = request.form['account']
         password = request.form['password']
         print(account,password)
         error = None 
-        if account=="":
-            error = 'account is empty.'
-        elif password=="":
-            error = 'password is empty.'
-        else:
-            check_result = check_account(account,password)
-            print(check_result)
-            if check_result == 'Not Exists':
-                error = 'Account not exists.'
-            elif check_result == 'wrong':
-                error = 'Incorrect password.'
+        check_result = check_account(account,password)
+        print(check_result)
+        if check_result == 'Not Exists':
+            error = 'Account not exists.'
+        elif check_result == 'wrong':
+            error = 'Incorrect password.'
         if error is None:
             session.clear()
             session['account'] = account
@@ -42,7 +35,7 @@ def login():
                 return redirect(url_for('street.streetmain'))
             if check_result == 'CDC staff':
                 return redirect(url_for('CDC.CDCmain'))
-            if check_result == 'database administrator':
+            if check_result == 'super manager':
                 return redirect(url_for('DB_administrator.DBmain'))
         flash(error)
     return render_template('auth/login.html')          #返回登录页面
