@@ -3,17 +3,20 @@ import functools
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
-from db.py import(
+from project.db import(
     get_resident_info_name,get_resident_info_identity,get_resident_info_region
+)
+from project.auth import(
+    login_required 
 )
 bp = Blueprint('CDC', __name__)
 
-@bp.route('/CDC/main',method = ('GET', 'POST'))
-@login_required
+@bp.route('/CDC/main',methods = ('GET', 'POST'))
+#@login_required
 def CDCmain():
-    return render_template('CDC/main.html',posts=posts)
+    return render_template('CDC/main.html')
 # 通过姓名、身份证号等查找居民信息，或者浏览某一区域的情况
-@bp.route('/CDC/inquire',method=('GET','POST'))
+@bp.route('/CDC/inquire',methods=('GET','POST'))
 @login_required 
 def inquire():
     if request.method == 'POST':
@@ -34,4 +37,4 @@ def inquire():
             error = '仅可选择一种查询方式,请保持其他输入框空白'
         if error is None:
             length = len(resident_info)
-            return render_template('auth/login.html',length=length,resident_info)  
+            return render_template('auth/login.html',length=length,resident_info=resident_info)  

@@ -33,8 +33,8 @@ def create_app(test_config=None):
     app.register_blueprint(auth.bp)
     #from . import db
     #db.init_app(app)
-    #from . import blog
-    #app.register_blueprint(blog.bp)
-    app.add_url_rule('/login',view_func=login,methods=['POST','get'])
+    from . import CDC
+    app.register_blueprint(CDC.bp)
+    app.add_url_rule('/',endpoint='login')
     return app
 # view_func=login

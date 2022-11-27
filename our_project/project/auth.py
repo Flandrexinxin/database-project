@@ -10,12 +10,14 @@ from project.db import (
 
 #from flaskr.db import get_db
 
-bp = Blueprint('auth', __name__, url_prefix='/auth')  # auth：蓝图名字,url_prefix会添加到所有与该蓝图关联的URL前面
+bp = Blueprint('auth', __name__)  # auth：蓝图名字,url_prefix会添加到所有与该蓝图关联的URL前面
 
 #登录视图 关联URL和login函数
-@bp.route('/login', methods=('GET', 'POST'))
+@bp.route('/', methods=('GET', 'POST'))
 def login():
+    print("hello")
     if request.method == 'POST':
+        print("hi")
         account = request.form['account']
         password = request.form['password']
         print(account,password)
@@ -34,6 +36,7 @@ def login():
             if check_result == 'street manager': 
                 return redirect(url_for('street.streetmain'))
             if check_result == 'CDC staff':
+                print(url_for('CDC.CDCmain'))
                 return redirect(url_for('CDC.CDCmain'))
             if check_result == 'super manager':
                 return redirect(url_for('DB_administrator.DBmain'))
