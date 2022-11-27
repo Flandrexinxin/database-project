@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <title>街道人员</title>
 
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = '../../static/CDCmain.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = '../../../../static/CDCmain.css') }}" />
 
     </head>
 
@@ -19,7 +19,7 @@
                 <li><h2>功能</h2></a></li>
 
                 <li><a href="check_covid_result.html">阳性病例查询</a></li>
-                <li><a href="{% url_for('static', filename = '../../inquire.html ''}">居民信息查询</a></li>                                   
+                <li><a href="{% url_for('static', filename='../../inquire.html') %}">居民信息查询</a></li>                                   
                 <li><a href="{% url 'assign:admin_seat' %}">密接人群查询</a></li>
                 <li><a href="{% url 'assign:admin_account' %}">密接人群查询2</a></li>
             </ul>

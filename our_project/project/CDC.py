@@ -12,8 +12,9 @@ from project.auth import(
 bp = Blueprint('CDC', __name__)
 
 @bp.route('/CDC/main',methods = ('GET', 'POST'))
-#@login_required
+@login_required
 def CDCmain():
+    print("CDC I'm coming!")
     return render_template('CDC/main.html')
 # 通过姓名、身份证号等查找居民信息，或者浏览某一区域的情况
 @bp.route('/CDC/inquire',methods=('GET','POST'))
