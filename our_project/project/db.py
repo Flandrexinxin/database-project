@@ -307,6 +307,20 @@ def medical_typein(pID,date_time,result,sample_num):
         close_db(conn)
         return True
 
+#检测该核酸编号是否存在
+def medical_if_exists(test_id):
+    conn = get_db()
+    cursor = conn.cursor()
+
+    sql = 'select * from NA_test_results where test_ID="%s"'%(test_id)
+    cursor.execute(sql)
+    ret = cursor.fetchall()
+    if len(ret)!=0:
+        cursor.close()
+        close_db(conn)
+        return True
+    else:
+        return False
 #覆盖原核酸结果信息
 def medical_cover(pID,date_time,result,sample_num):
     conn = get_db()

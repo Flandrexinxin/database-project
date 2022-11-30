@@ -30,7 +30,7 @@ CDC/inquire：这个页面实现疾控中心工作人员对居民信息的查询
 #### 基础函数
 * get_db()：连接数据库，返回一个与数据库建立的链接。
 * close_db(conn):断开与数据库的连接，输入以上建立的链接，无返回值。
-* get_user_tuple(account)
+* get_user_tuple(account)：根据账号返回用户信息
 
 #### 超级管理员函数
 * add_staff(new_account,staff_type,street='NULL')：将管理人员信息传入数据库中，依次输入管理员信息列表，管理员类型（类型包括：super manager,medical staff,street manager,CDC staff），所管理的街道（默认为NULL）；无返回值
