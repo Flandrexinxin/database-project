@@ -2,6 +2,74 @@
     margin: 0;
      padding: 0;
 }
+
+.top{
+    /* 设置宽度高度背景颜色 */
+    height: auto; /*高度改为自动高度*/
+    width:100%;
+    margin-left: 0;
+    background:rgb(189, 181, 181);
+    position: fixed; /*固定在顶部*/
+    top: 0;/*离顶部的距离为0*/
+    margin-bottom: 5px;
+}
+.top ul{
+    /* 清除ul标签的默认样式 */
+    width: auto;/*宽度也改为自动*/
+    list-style-type: none;
+    white-space:nowrap;
+    overflow: hidden;
+    margin-left: 5%;
+    /* margin-top: 0;          */
+    padding: 0;
+
+}
+.top li {
+    float:left; /* 使li内容横向浮动，即横向排列  */
+    margin-right:2%;  /* 两个li之间的距离*/
+    position: relative;
+    overflow: hidden;
+}
+
+.top li a{
+   /* 设置链接内容显示的格式*/
+    display: block; /* 把链接显示为块元素可使整个链接区域可点击 */
+    color:white;
+    text-align: center;
+    padding: 3px;
+    overflow: hidden;
+    text-decoration: none; /* 去除下划线 */
+    font: 20px Georgia,  Times, serif;
+    
+    
+}
+.top li a:hover{
+    /* 鼠标选中时背景变为黑色 */
+    background-color: #111;
+}
+.top ul li ul{
+    /* 设置二级菜单 */
+    margin-left: -0.2px;
+    background:rgb(189, 181, 181);
+    position: relative;
+    display: none; /* 默认隐藏二级菜单的内容 */
+
+}
+.top ul li ul li{
+    /* 二级菜单li内容的显示 */
+    
+    float:none;
+    text-align: center;
+}
+.top ul li:hover ul{
+    /* 鼠标选中二级菜单内容时 */
+    display: block;
+}
+body{
+    background:#eff3f5;
+}
+
+
 .row{
     display: flex;
 }
@@ -12,7 +80,7 @@ div{
 
 .nav_left{
     display: block;
-    padding-top: 20px;
+    padding-top: 100px;
     padding-left: 40px;
     width: fit-content;
     height: fit-content;
@@ -63,12 +131,18 @@ div{
     background-color:rgb(163, 161, 161);
 }
 
+.container {
+    display: flex;
+    flex-direction: column;  /* 按照列column(垂直方向)排列*/
+    overflow: auto;
+}
+
 .div_right{
     flex: 70%;
-    margin-left: 5%;
-    margin-right: 5%;
-    padding-top: 20px;
-   
+    margin-left: 10%;
+    margin-right: 10%;
+    padding-top: 150px;
+
 
 }
 
@@ -77,7 +151,7 @@ div{
     margin-left:auto;
  
     margin-right:auto;
-        background: #F7F7F7;
+        background: #eff3f5;
  
          padding: 25px 15px 25px 10px;
  
@@ -120,6 +194,7 @@ div{
     margin-top: 20px;
 }
 
+
 .label_input{
 
 
@@ -134,7 +209,7 @@ div{
          color: rgb(16, 15, 15);
 
 }
-.div_right_bar input{
+.text_field{
     border: 1px solid #DADADA;
  
          color: rgb(28, 27, 27);
@@ -165,6 +240,37 @@ div{
 
 }
 
+.text_field2{
+    border: 1px solid #DADADA;
+ 
+         color: rgb(28, 27, 27);
+ 
+         height: 30px;
+ 
+         margin-bottom: 16px;
+ 
+         margin-right: 6px;
+ 
+         margin-top: 2px;
+ 
+         outline: 0 none;
+ 
+         padding: 3px 3px 3px 5px;
+ 
+         width: 30%;
+ 
+         font-size: 14px;
+ 
+         line-height:15px;
+ 
+         box-shadow: inset 0px 1px 4px #ECECEC;
+ 
+         -moz-box-shadow: inset 0px 1px 4px #ECECEC;
+ 
+         -webkit-box-shadow: inset 0px 1px 4px #ECECEC
+
+}
+
 .div_right_bar select{
     border: 1px solid #DADADA;
  
@@ -174,9 +280,9 @@ div{
  
          text-overflow: '';
  
-         width: 51%;
+         width: 20%;
  
-         height: 40px;
+         height: 35px;
  
          line-height: 25px;
          box-shadow: inset 0px 1px 4px #ECECEC;
@@ -212,5 +318,15 @@ div{
 .div_right_bar button:hover {
 
     background: #CF7A7A
+
+}
+
+
+.div_down{
+    flex: 70%;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 5%;
+
 
 }
