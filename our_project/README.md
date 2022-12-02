@@ -25,15 +25,16 @@ CDC/inquire：这个页面实现疾控中心工作人员对居民信息的查询
 * 查询页面3：按照时间范围或所在的相关街道，查询阳性病例
 * 查询页面4：输入病例的检测编号，根据其居住地排 查检测时间前后7天的密接人群
 * 查询页面5：输入病例的身份证号以及排查的时间范围，查询与该病例在指定时间范围内密接的人员
-### 明确需要后端完成封装的功能函数
 
+##后端
+### 后端实现的功能函数
 #### 基础函数
 * get_db()：连接数据库，返回一个与数据库建立的链接。
 * close_db(conn):断开与数据库的连接，输入以上建立的链接，无返回值。
 * get_user_tuple(account)：根据账号返回用户信息
 
 #### 超级管理员函数
-* add_staff(new_account,staff_type,street='NULL')：将管理人员信息传入数据库中，依次输入管理员信息列表，管理员类型（类型包括：super manager,medical staff,street manager,CDC staff），所管理的街道（默认为NULL）；无返回值
+* add_staff(new_account,staff_type,account_name,street='NULL')：将管理人员信息传入数据库中，依次输入管理员信息列表，管理员类型（类型包括：super manager,medical staff,street manager,CDC staff），姓名（是一个列表，长度与new_account相同），所管理的街道（默认为NULL）；无返回值
 * create_password(amount)：创建规定数量的管理人员账号和密码，输入要创建的数量，输出一个包含若干元组的列表，每个元组包含账号、密码。
 * check_account(account,password)：检查输入的账号密码是否正确匹配，输入要登录的账号和密码，当输入账号错误时，输出"Not Exists"；当输入账号正确，密码错误时，输出"wrong"；当输入账号密码均正确时，输出管理员类型的字符串（类型包括：super manager,medical staff,street manager,CDC staff）
 
@@ -61,8 +62,43 @@ CDC/inquire：这个页面实现疾控中心工作人员对居民信息的查询
 * csv_insert_Residence_info(path)：从csv中批量导入居民居住信息。path为csv文件的存储路径。
 * csv_insert_Location_info(path)：从csv中批量导入小区/场所信息。path为csv文件的存储路径。
 
+###表结构
+table NA_test_results( //核酸检测结果信息表 3NF
+    ID char(18) NOT NULL, //居民身份证号，char型，18位
+    test_time datetime NOT NULL,//检测时间，时分秒，datetime型，精确到秒
+    result char(4),//检测结果，char型，阴性,阳性
+    test_ID char(10) PRIMARY KEY//检测样本编号，char型，8位                         
+)
 
-## 后端
-### 在什么场景下需要后端提供什么数据
-### 设计基本表是否考虑了范式
+table Scan_code_info( //场所码扫码信息表 1NF
+    Place_ID char(4) NOT NULL,//场所编码，char型，
+    ID char(18) NOT NULL,//居民身份证号，char型，18位
+    enter_time datetime NOT NULL//进入时间，时分秒，datetime型，精确到秒
+)
 
+table Residence_info(  //居民居住信息表 1NF
+    ID char(18) NOT NULL,//居民身份证号，char型，18位
+    name varchar(10), //姓名，varchar型，最长10位
+    tele_number char(11) NOT NULL, //联系方式，char型，11位
+    sex char(2), //性别，char型，男,女
+    birthday date,//出生年月日，date型，精确到日
+    community varchar(20) NOT NULL,//所在小区，varchar型，最长20位
+    enter_date date NOT NULL,//进入当前居住地日期，date型，精确到日
+    out_date date//离开当前居住地日期，date型，精确到日
+)
+
+table Location_info( //小区/场所信息表 3NF
+    name varchar(20) NOT NULL,//名称，varchar型，最长20位
+    Place_ID char(4) PRIMARY KEY,//场所编码，char型，
+    street varchar(20) NOT NULL,//所在街道，varchar型，最长20位
+    manager varchar(10) NOT NULL,//负责人姓名，varchar型，最长10位
+    tele_number char(11) NOT NULL//联系方式，char型，11位 
+)
+
+table staff(//用户表 3NF
+    account char(8) PRIMARY KEY,//账号，char型，
+    password varchar(200) NOT NULL,//密码，varchar型，
+    type varchar(50),//人员类型，super manager,medical staff,street manager,CDC staff
+    street varchar(20),//所在街道，街道管理人员此属性有值，其他人员类型为空值
+    name varchar(20)//用户名
+)
