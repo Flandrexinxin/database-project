@@ -4,7 +4,7 @@ from werkzeug.security import generate_password_hash,check_password_hash
 import mysql.connector
 import string
 import random
-import csv,pandas
+import pymysql,csv,pandas
 import datetime as dt
 
 #连接数据库
@@ -41,13 +41,15 @@ def get_user_tuple(account):
     return ret
 
 # add staff infomation into database
-def add_staff(new_account,staff_type,street='NULL'):
+def add_staff(new_account,staff_type,account_name,street='NULL'):
+    if(len(new_account)!=len(account_name)):
+        return 'lenth is not illegal'
     conn=get_db()
     cursor=conn.cursor(prepared=True)
     for i in range(len(new_account)):
         se_password=generate_password_hash(new_account[i][1])
-        sql='insert into staff(account,password,type,street) values(%s,%s,%s,%s)'
-        cursor.execute(sql,(new_account[i][0],se_password,staff_type,street))
+        sql='insert into staff(account,password,type,street,name) values(%s,%s,%s,%s,%s)'
+        cursor.execute(sql,(new_account[i][0],se_password,staff_type,street,account_name[i]))
         conn.commit()
 
     cursor.close()
@@ -307,20 +309,6 @@ def medical_typein(pID,date_time,result,sample_num):
         close_db(conn)
         return True
 
-#检测该核酸编号是否存在
-def medical_if_exists(test_id):
-    conn = get_db()
-    cursor = conn.cursor()
-
-    sql = 'select * from NA_test_results where test_ID="%s"'%(test_id)
-    cursor.execute(sql)
-    ret = cursor.fetchall()
-    if len(ret)!=0:
-        cursor.close()
-        close_db(conn)
-        return True
-    else:
-        return False
 #覆盖原核酸结果信息
 def medical_cover(pID,date_time,result,sample_num):
     conn = get_db()
