@@ -242,19 +242,19 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="nav-link text-white">
+                    <a href="{{ url_for('CDC.CDCinquire_close_region') }}" class="nav-link text-white">
                         <svg class="bi me-2" width="16" height="16">
                             <use xlink:href="#grid" />
                         </svg>
-                        Products
+                        密接人员查询
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="nav-link text-white">
+                    <a href="{{ url_for('CDC.CDCinquire_close') }}" class="nav-link text-white">
                         <svg class="bi me-2" width="16" height="16">
                             <use xlink:href="#people-circle" />
                         </svg>
-                        Customers
+                       时空密接查询
                     </a>
                 </li>
             </ul>
@@ -272,7 +272,7 @@
                     <li>
                         <hr class="dropdown-divider">
                     </li>
-                    <li><a class="dropdown-item" href="#">退出登录</a></li>
+                    <li><a class="dropdown-item" href="{{ url_for('auth.login') }}">退出登录</a></li>
                 </ul>
             </div>
         </div>
