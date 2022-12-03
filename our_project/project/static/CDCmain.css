@@ -271,6 +271,9 @@ div{
 
 }
 
+
+
+
 .div_right_bar select{
     border: 1px solid #DADADA;
  
@@ -324,8 +327,8 @@ div{
 
 .div_down{
     flex: 70%;
-    margin-left: 5%;
-    margin-right: 5%;
+    margin-left: 10%;
+    margin-right: 10%;
     margin-top: 5%;
 
 
