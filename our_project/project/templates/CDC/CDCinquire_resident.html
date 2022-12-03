@@ -6,9 +6,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/css/bootstrap.min.css" rel="stylesheet">
-    <!-- <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css"> -->
+   
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = '../../static/CDCmain.css')}}" />
     <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <style>
         body {
@@ -244,19 +245,19 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="nav-link text-white">
+                    <a href="{{ url_for('CDC.CDCinquire_close_region') }}" class="nav-link text-white">
                         <svg class="bi me-2" width="16" height="16">
                             <use xlink:href="#grid" />
                         </svg>
-                        Products
+                        密接人员查询
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="nav-link text-white">
+                    <a href="{{ url_for('CDC.CDCinquire_close') }}" class="nav-link text-white">
                         <svg class="bi me-2" width="16" height="16">
                             <use xlink:href="#people-circle" />
                         </svg>
-                        Customers
+                        时空密接查询
                     </a>
                 </li>
             </ul>
@@ -274,7 +275,7 @@
                     <li>
                         <hr class="dropdown-divider">
                     </li>
-                    <li><a class="dropdown-item" href="#">退出登录</a></li>
+                    <li><a class="dropdown-item" href="{{ url_for('auth.login') }}">退出登录</a></li>
                 </ul>
             </div>
         </div>
@@ -368,7 +369,13 @@
     <script>
         /* global bootstrap: false */
 
-
+        (function () {
+            'use strict'
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+            tooltipTriggerList.forEach(function (tooltipTriggerEl) {
+                new bootstrap.Tooltip(tooltipTriggerEl)
+            })
+        })()
 
     </script>
 </body>
