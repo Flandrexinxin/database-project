@@ -367,3 +367,15 @@ def get_close_region(test_id):
 
     return ret
 
+def medical_if_exists(test_id):
+    conn = get_db()
+    cursor = conn.cursor()
+
+    sql = 'select * from NA_test_results where test_ID="%s"'%(test_id)
+    cursor.execute(sql)
+    ret = cursor.fetchall()
+    if len(ret)!=0:
+        cursor.close()
+        close_db(conn)
+        return True
+    return False

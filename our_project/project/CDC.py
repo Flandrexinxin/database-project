@@ -44,7 +44,7 @@ def CDCinquire_resident():
             if(length==0):
                 error = '查询结果为空，请检查输入信息'
             else:
-                return render_template('CDC/CDCinquire_resident_result.html',length=length,resident_info=resident_info)  
+                return render_template('CDC/CDCinquire_resident.html',length=length,resident_info=resident_info)  
         flash(error)
     return render_template('CDC/CDCinquire_resident.html')
 #根据时间范围或地区查询阳性病例
@@ -71,7 +71,7 @@ def CDCinquire_positive():
             if(length==0):
                 error = '未查询到阳性病例'
             else:
-                return render_template('CDC/CDCinquire_positive_result.html',length=length,ill_info=ill_info)
+                return render_template('CDC/CDCinquire_positive.html',length=length,ill_info=ill_info)
         flash(error)
     return render_template('CDC/CDCinquire_positive.html') 
 #输入病例的检测编号，根据其居住地排查检测时间前后7天与阳性病例居住在同一小区的居民信息
@@ -89,7 +89,7 @@ def CDCinquire_close_region():
             length = len(close_resident_info)
             if(length==0):
                 error = '未查询到与该阳性病例前后七天内居住在同一小区的居民'
-            return render_template('CDC/CDCinquire_close_region_result.html',length=length,close_resident_info=close_resident_info)
+            return render_template('CDC/CDCinquire_close_region.html',length=length,close_resident_info=close_resident_info)
         flash(error)
     return render_template('CDC/CDCinquire_close_region.html')
 #输入病例的身份证号以及排查的时间范围，查询与该病例在指定时间范围内存在时空密接的人员
@@ -106,7 +106,7 @@ def CDCinquire_close():
         if length == 0:
             error = '未查询到相关信息，请再次检查输入'
         else:
-            return render_template('CDC/CDCinquire_close_result.html',length=length,close_people_info=close_people_info)
+            return render_template('CDC/CDCinquire_close.html',length=length,close_people_info=close_people_info)
         flash(error)
     return render_template('CDC/CDCinquire_close.html')
 
