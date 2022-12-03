@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css"> -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = '../../static/CDCmain.css')}}" />
     <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -310,7 +310,7 @@
                 {% for message in messages %}
 
                 <div class="alert alert-warning" style="text-align:center;font-size: 16px;">
-                    <a href="#" class="close" data-dismiss="alert">
+                    <a href="#" style="text-decoration: none;color: black" class="close" data-dismiss="alert">
                         &times;
                     </a>
                     <strong>{{messages}}</strong>
@@ -342,13 +342,8 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {% for i in close_people_info %}
-                                        <tr>
-                                            {% for j in i %}
-                                            <td>{{ j }}</td>
-                                            {% endfor %}
-                                        </tr>
-                                        {% endfor %}
+                                        {{resident_info}}
+                                        
                                     </tbody>
                                 </table>
                             </div>
