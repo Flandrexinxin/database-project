@@ -93,7 +93,7 @@ def CDCinquire_close_region():
         flash(error)
     return render_template('CDC/CDCinquire_close_region.html')
 #输入病例的身份证号以及排查的时间范围，查询与该病例在指定时间范围内存在时空密接的人员
-@bp.route('/CDC/CDCinquire_close')
+@bp.route('/CDC/CDCinquire_close',methods=('GET','POST'))
 @login_required
 def CDCinquire_close():
     if request.method == 'POST':
