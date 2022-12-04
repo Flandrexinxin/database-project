@@ -270,7 +270,7 @@ def get_resident_info_region(region,rtype):
     if rtype=='community':
         sql = 'select * from Residence_info where community="%s"' % (region)
     else:
-        sql='select * from Residence_info x,Location_info y where y.street="%s" and x.community=y.name'%(region)
+        sql='select x.ID,x.name,x.tele_number,sex,birthday,community,enter_date,out_date from Residence_info x,Location_info y where y.street="%s" and x.community=y.name'%(region)
     
     db.execute(sql)
     ret = db.fetchall()  # get the result

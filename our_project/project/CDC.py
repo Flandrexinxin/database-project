@@ -28,6 +28,7 @@ def CDCinquire_resident():
         identity = request.form['identity']
         region = request.form['region']
         rtype = request.form['rtype'] 
+        print(rtype)
         error = None
         if len(name) == 0 and len(identity) == 0 and (len(region) == 0 or len(rtype)==0):
             error = '请输入所查询信息'
@@ -36,6 +37,11 @@ def CDCinquire_resident():
         elif len(name) == 0 and len(region) == 0 and len(rtype):
             resident_info = get_resident_info_identity(identity)
         elif len(name) == 0 and len(identity) == 0:
+            if(rtype=='1'):
+                rtype='street'
+            if(rtype=='2'):
+                rtype='community'
+            print(rtype)
             resident_info = get_resident_info_region(region,rtype)
         else:
             error = '仅可选择一种查询方式,请保持其他输入框空白'

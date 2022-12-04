@@ -135,6 +135,12 @@ div{
     display: flex;
     flex-direction: column;  /* 按照列column(垂直方向)排列*/
     overflow: auto;
+    /*------------*/
+    margin: 30px 15px 30px 0px;
+    border-radius: 5px;
+
+    /*------------*/
+
 }
 
 .div_right{
@@ -157,28 +163,32 @@ div{
  
          font: 12px Georgia,  Times, serif;
  
-         color: #888;
+         color: rgb(10, 9, 9);
  
-         text-shadow: 1px 1px 1px #FFF;
+         /* text-shadow: 1px 1px 1px #FFF; */
  
-         border:1px solid #E4E4E4;
-         border-radius: 5px;
+         /* border:1px solid #E4E4E4; */
+         /* border-radius: 5px; */
 
 }
 
 .div_right_bar h2 {
  
-    font-size: 25px;
+    font-size: 300%;
 
     padding: 0px 0px 10px 40px;
 
     display: block;
 
-    border-bottom:1px solid #E4E4E4;
+    font-weight: bold;
 
-    margin: -10px -15px 30px -10px;;
+    /* border-bottom:1px solid #E4E4E4; */
 
-    color: #888;
+    /* margin: -10px -15px 30px -10px; */
+
+    margin-left: 155px;
+
+    color: rgb(11, 10, 10);
 
 
 }
@@ -300,7 +310,7 @@ div{
     
     margin-left: 50%;
     margin-top: 20px;
-    background: #E27575;
+    background: rgb(8, 9, 10);
 
     border: none;
 
@@ -312,7 +322,7 @@ div{
 
     border-radius: 3px;
 
-    text-shadow: 1px 1px 1px #9E3F3F;
+    /* text-shadow: 1px 1px 1px #9E3F3F; */
 
     cursor: pointer;
 
@@ -320,7 +330,7 @@ div{
 
 .div_right_bar button:hover {
 
-    background: #CF7A7A
+    background: rgb(73, 76, 77)
 
 }
 
@@ -330,6 +340,4 @@ div{
     margin-left: 10%;
     margin-right: 10%;
     margin-top: 5%;
-
-
 }

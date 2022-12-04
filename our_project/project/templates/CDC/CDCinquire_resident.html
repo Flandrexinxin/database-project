@@ -213,10 +213,7 @@
 
         <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px;">
             <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-                <svg class="bi me-2" width="40" height="32">
-                    <use xlink:href="#bootstrap" />
-                </svg>
-                <span class="fs-4">城市疫情管理</span>
+                <span class="fs-4" style="margin-left: 20px;">疾控中心工作人员</span>
             </a>
             <hr>
             <ul class="nav nav-pills flex-column mb-auto">
@@ -284,7 +281,7 @@
 
         <section class="container">
             <div class="div_right">
-                <form method="post" action="/CDC/CDCinquire_resident">
+                <form method="post" action="/CDC/CDCinquire_resident" style="margin-top: -110px;">
 
                     <ul class="div_right_bar">
                         <h2>居民信息查询</h2>
@@ -294,13 +291,13 @@
                         <li><label class="label_input">身份证号码:</label><input type="text" name="identity"
                                 class="text_field" /></li>
 
-                        <li><label class="label_input">地区:</label><select name="region" id="row1">
+                        <li><label class="label_input">地区:</label><select name="rtype" id="row1">
                                 <option style='display:none'></option>
                                 <option value="1">街道</option>
                                 <option value="2">小区</option>
 
-                            </select><input type='text' name="rtype" class="text_field2" id="row2" /></li>
-                        <li><button id="btn_search" style="cursor:pointer" type="submit">查找</button></li>
+                            </select><input type='text' name="region" class="text_field2" id="row2" /></li>
+                        <li><button id="btn_search"style="cursor:pointer;margin-left: 275px;font: 12px Georgia, Times,serif;"  type="submit">查找</button></li>
                     </ul>
                 </form>
 
@@ -328,11 +325,33 @@
 
 
 
-            <div class="div_down">
-                <table class="table table-striped">
+            <div class="div_down" >
+                <table class="table table-striped" style="width:800px;margin-left: -30px;">
                     <caption>查询结果</caption>
-                    <div class="panel-heading">
-                        <h3>查询结果</h3>
+                    <div class="panel-heading" style="
+ 
+                    padding: 0px 0px 10px 40px;
+                
+                    display: block;
+
+                    font: 16px Georgia,  Times, serif;
+                
+                    margin-left: 230px;
+                    font-weight: bold;
+                
+                    color: rgb(11, 10, 10);">
+                        <h3 style="
+ 
+                        padding: 0px 0px 10px 40px;
+                    
+                        display: block;
+    
+                        font: 35px Georgia,  Times, serif;
+                    
+                        margin-left: -57px;
+                        font-weight: bold;
+                    
+                        color: rgb(11, 10, 10);">查询结果</h3>
                     </div>
                     <thead>         
                         <tr>
