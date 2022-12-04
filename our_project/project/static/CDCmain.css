@@ -310,7 +310,7 @@ div{
     
     margin-left: 50%;
     margin-top: 20px;
-    background: rgb(8, 9, 10);
+    background: rgb(73, 76, 77);
 
     border: none;
 
@@ -330,7 +330,7 @@ div{
 
 .div_right_bar button:hover {
 
-    background: rgb(73, 76, 77)
+    background: rgb(94, 96, 96)
 
 }
 
