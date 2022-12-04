@@ -62,8 +62,8 @@ CDC/inquire：这个页面实现疾控中心工作人员对居民信息的查询
 * csv_insert_Residence_info(path)：从csv中批量导入居民居住信息。path为csv文件的存储路径。
 * csv_insert_Location_info(path)：从csv中批量导入小区/场所信息。path为csv文件的存储路径。
 
-###表结构
-table NA_test_results( //核酸检测结果信息表 3NF
+#### 表结构
+* table NA_test_results( //核酸检测结果信息表 3NF
     ID char(18) NOT NULL, //居民身份证号，char型，18位
     test_time datetime NOT NULL,//检测时间，时分秒，datetime型，精确到秒
     result char(4),//检测结果，char型，阴性,阳性

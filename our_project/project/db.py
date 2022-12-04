@@ -376,6 +376,14 @@ def medical_if_exists(test_id):
     ret = cursor.fetchall()
     if len(ret)!=0:
         cursor.close()
-        close_db(conn)
+        close_db(conn) 
         return True
     return False
+
+def get_user_name(the_account):
+    conn = get_db()  # Connecting to the Database
+    cursor = conn.cursor()  # get the cursor
+    sql = 'select name from staff where account="%s"'%(the_account)
+    cursor.execute(sql)
+    ret = cursor.fetchall()
+    return ret

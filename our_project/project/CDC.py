@@ -8,21 +8,23 @@ from project.db import(
     get_ill_info_street,get_ill_info_time,get_close_region,medical_if_exists,get_close_location
 )
 from project.auth import(
-    login_required 
+    login_required
 )
 bp = Blueprint('CDC', __name__)
 
 @bp.route('/CDC/main',methods = ('GET', 'POST'))
 @login_required
 def CDCmain():
+    user_name=session['user_name']
     print("CDC I'm coming!")
     print("why?")
     print(url_for('CDC.CDCinquire_resident'))
-    return render_template('CDC/main.html')
+    return render_template('CDC/main.html',user_name=user_name)
 # 通过姓名、身份证号等查找居民信息，或者浏览某一区域的情况
 @bp.route('/CDC/CDCinquire_resident',methods=('GET','POST'))
 @login_required 
 def CDCinquire_resident():
+    user_name=session['user_name']
     if request.method == 'POST':
         name = request.form['name']
         identity = request.form['identity']
@@ -34,7 +36,7 @@ def CDCinquire_resident():
             error = '请输入所查询信息'
         elif len(identity) == 0 and len(region) == 0 and len(rtype)==0:
             resident_info = get_resident_info_name(name)
-        elif len(name) == 0 and len(region) == 0 and len(rtype):
+        elif len(name) == 0 and len(region) == 0 and len(rtype)==0:
             resident_info = get_resident_info_identity(identity)
         elif len(name) == 0 and len(identity) == 0:
             if(rtype=='1'):
@@ -50,13 +52,14 @@ def CDCinquire_resident():
             if(length==0):
                 error = '查询结果为空，请检查输入信息'
             else:
-                return render_template('CDC/CDCinquire_resident.html',length=length,resident_info=resident_info)  
+                return render_template('CDC/CDCinquire_resident.html',length=length,resident_info=resident_info,user_name=user_name)  
         flash(error)
-    return render_template('CDC/CDCinquire_resident.html')
+    return render_template('CDC/CDCinquire_resident.html',user_name=user_name)
 #根据时间范围或地区查询阳性病例
 @bp.route('/CDC/CDCinquire_positive',methods=('GET','POST'))
 @login_required 
 def CDCinquire_positive():
+    user_name=session['user_name']
     if request.method == 'POST':
         time_start = request.form['time_start'] 
         time_end = request.form['time_end']
@@ -77,13 +80,14 @@ def CDCinquire_positive():
             if(length==0):
                 error = '未查询到阳性病例'
             else:
-                return render_template('CDC/CDCinquire_positive.html',length=length,ill_info=ill_info)
+                return render_template('CDC/CDCinquire_positive.html',length=length,ill_info=ill_info,user_name=user_name)
         flash(error)
-    return render_template('CDC/CDCinquire_positive.html') 
+    return render_template('CDC/CDCinquire_positive.html',user_name=user_name) 
 #输入病例的检测编号，根据其居住地排查检测时间前后7天与阳性病例居住在同一小区的居民信息
 @bp.route('/CDC/CDCinquire_close_region',methods=('GET','POST'))
 @login_required
 def CDCinquire_close_region():
+    user_name=session['user_name']
     if request.method == 'POST':
         test_id = request.form['test_id']
         error = None
@@ -95,13 +99,14 @@ def CDCinquire_close_region():
             length = len(close_resident_info)
             if(length==0):
                 error = '未查询到与该阳性病例前后七天内居住在同一小区的居民'
-            return render_template('CDC/CDCinquire_close_region.html',length=length,close_resident_info=close_resident_info)
+            return render_template('CDC/CDCinquire_close_region.html',length=length,close_resident_info=close_resident_info,user_name=user_name)
         flash(error)
-    return render_template('CDC/CDCinquire_close_region.html')
+    return render_template('CDC/CDCinquire_close_region.html',user_name=user_name)
 #输入病例的身份证号以及排查的时间范围，查询与该病例在指定时间范围内存在时空密接的人员
 @bp.route('/CDC/CDCinquire_close',methods=('GET','POST'))
 @login_required
 def CDCinquire_close():
+    user_name=session['user_name']
     if request.method == 'POST':
         identity = request.form['identity']          #identity、begin_time、end_time均为required
         begin_time = request.form['begin_time']
@@ -112,9 +117,9 @@ def CDCinquire_close():
         if length == 0:
             error = '未查询到相关信息，请再次检查输入'
         else:
-            return render_template('CDC/CDCinquire_close.html',length=length,close_people_info=close_people_info)
+            return render_template('CDC/CDCinquire_close.html',length=length,close_people_info=close_people_info,user_name=user_name)
         flash(error)
-    return render_template('CDC/CDCinquire_close.html')
+    return render_template('CDC/CDCinquire_close.html',user_name=user_name)
 
 
         

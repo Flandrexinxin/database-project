@@ -4,14 +4,13 @@ from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
 from project.db import (
-    check_account, get_user_tuple
+    check_account, get_user_tuple, get_user_name
 ) 
 # from werkzeug.security import check_password_hash, generate_password_hash
 
 #from flaskr.db import get_db
 
 bp = Blueprint('auth', __name__)  # auth：蓝图名字,url_prefix会添加到所有与该蓝图关联的URL前面
-
 #登录视图 关联URL和login函数
 @bp.route('/', methods=('GET', 'POST'))
 def login():
@@ -31,6 +30,10 @@ def login():
         if error is None:
             session.clear()
             session['account'] = account
+            user_name = get_user_name(account)
+            user_name = user_name[0][0]
+            print(user_name)
+            session['user_name'] = user_name
             if check_result == 'medical staff':
                 return redirect(url_for('medical.medicalmain'))  
             if check_result == 'street manager': 
