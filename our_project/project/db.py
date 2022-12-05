@@ -378,6 +378,8 @@ def medical_if_exists(test_id):
         cursor.close()
         close_db(conn) 
         return True
+    cursor.close()
+    close_db(conn) 
     return False
 
 def get_user_name(the_account):
@@ -386,4 +388,17 @@ def get_user_name(the_account):
     sql = 'select name from staff where account="%s"'%(the_account)
     cursor.execute(sql)
     ret = cursor.fetchall()
+    cursor.close()
+    close_db(conn) 
     return ret
+
+def delete_user(the_account):
+    conn = get_db()  # Connecting to the Database
+    cursor = conn.cursor()  # get the cursor
+    for item in the_account:
+        print(item)
+        sql = 'delete from staff where account="%s"'%(item)
+        cursor.execute(sql)
+        conn.commit()
+    cursor.close()
+    close_db(conn)          

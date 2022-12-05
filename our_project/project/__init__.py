@@ -21,18 +21,20 @@ def create_app(test_config=None):
     else:
         # load the test config if passed in
         app.config.from_mapping(test_config)
-
     # ensure the instance folder exists
     try:
         os.makedirs(app.instance_path)
     except OSError:
         pass
+    app.config['UPLOAD_EXTENSIONS'] = ['.csv']
+    app.config['UPLOAD_PATH'] = 'instance'
 
-    # a simple page that says hello
     from . import auth
     app.register_blueprint(auth.bp)
     from . import CDC
     app.register_blueprint(CDC.bp)
+    from . import DB_administrator
+    app.register_blueprint(DB_administrator.bp)
     app.add_url_rule('/',endpoint='login')
     return app
 # view_func=login

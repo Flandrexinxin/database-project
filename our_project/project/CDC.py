@@ -17,8 +17,6 @@ bp = Blueprint('CDC', __name__)
 def CDCmain():
     user_name=session['user_name']
     print("CDC I'm coming!")
-    print("why?")
-    print(url_for('CDC.CDCinquire_resident'))
     return render_template('CDC/main.html',user_name=user_name)
 # 通过姓名、身份证号等查找居民信息，或者浏览某一区域的情况
 @bp.route('/CDC/CDCinquire_resident',methods=('GET','POST'))
