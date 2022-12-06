@@ -1,11 +1,19 @@
 <section class="container">
             <div class="div_right">
-                <form method="post" action="/CDC/CDCinquire_close_region" style="margin-top: -110px;">
+                <form method="post" action="/CDC/CDCinquire_close" style="margin-top: -110px;">
 
                     <ul class="div_right_bar">
-                        <h2>密接人员查询</h2>
-                        <li><label class="label_input">检测编号:</label><input type="number" name="test_id" required class="text_field" required/>
+                        <h2>时空密接查询</h2>
+                        <li><label class="label_input">身份证号:</label><input type="text" name="identity" class="text_field" required/>
                         </li>
+
+                        <li><label class="label_input">开始时间:</label><input type="datetime-local" name="begin_time" value="" class="text_field" required/>
+                         
+                        </li>
+                        <li><label class="label_input">结束时间:</label>
+                            <input type="datetime-local" name="end_time" value="" placeholder="请选择时间" class="text_field" required/>
+                        </li>
+                        
                         <li><button id="btn_search"style="cursor:pointer;margin-left: 275px;font-size:16px;letter-spacing:1px;"  type="submit">查找</button></li>
                     </ul>
                 </form>
@@ -17,7 +25,7 @@
                 {% for message in messages %}
 
                 <div class="alert alert-warning" style="text-align:center;font-size: 16px;">
-                    <a href="#" style="text-decoration: none;color: black" class="close" data-dismiss="alert">
+                    <a href="#"  style="text-decoration: none;color: black" class="close" data-dismiss="alert">
                         &times;
                     </a>
                     <strong>{{messages}}</strong>
@@ -55,7 +63,7 @@
                     </thead>
                     <tbody>
                       
-                            {% for i in close_resident_info %}
+                            {% for i in close_people_info %}
                             <tr>
                                 {% for j in i %}
                                 <td>{{ j }}</td>
