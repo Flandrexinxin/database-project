@@ -13,6 +13,7 @@ from project.auth import(
 import os
 bp = Blueprint('DB_administrator', __name__)
 
+
 @bp.route('/DB_administrator/DBmain',methods = ('GET', 'POST'))
 @login_required
 def DBmain():

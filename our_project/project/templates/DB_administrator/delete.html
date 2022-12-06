@@ -10,18 +10,23 @@
     <script src="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/js/bootstrap.bundle.min.js"></script>
     <style>
         body {
-            min-height: 100vh;
-            min-height: -webkit-fill-available
+            /* min-height: 100vh; */
+            /* min-height: -webkit-fill-available */
+            height:100%;
+            /* height: -webkit-fill-available */
+            display: table;
         }
         html {
-            height: -webkit-fill-available
+            height:100%;
+            /* height: -webkit-fill-available */
+            display: table;
         }
         main {
             display: flex;
             flex-wrap: nowrap;
-            height: 100vh;
-            height: -webkit-fill-available;
-            max-height: 100vh;
+            height: 100%;
+            /* height: -webkit-fill-available; */
+            /* max-height: 100vh; */
             overflow-x: auto;
             overflow-y: hidden
         }
@@ -204,7 +209,7 @@
     </svg>
 
     <main>
-        <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px;height:680px">
+        <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px;">
             <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
             <span class="fs-4" style="margin-left: 50px;">系统管理员</span></span>
             </a>
@@ -216,6 +221,16 @@
                             <path d="M6 1v3H1V1h5zM1 0a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1H1zm14 12v3h-5v-3h5zm-5-1a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1h-5zM6 8v7H1V8h5zM1 7a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1H1zm14-6v7h-5V1h5zm-5-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1h-5z"/>
                           </svg>
                         &nbsp首页
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('DB_administrator.DBaddDB') }}" class="nav-link text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-lock" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z"/>
+                            <path d="M8 14v-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10c.26 0 .507.009.74.025.226-.341.496-.65.804-.918C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4s1 1 1 1h5Zm1-1a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-2Z"/>
+                            <path fill-rule="evenodd" d="M12 10a1 1 0 0 0-1 1v1.5a.5.5 0 0 1-1 0V11a2 2 0 1 1 4 0v1.5a.5.5 0 0 1-1 0V11a1 1 0 0 0-1-1Z"/>
+                          </svg>
+                          &nbsp添加系统管理员
                     </a>
                 </li>
                 <li>

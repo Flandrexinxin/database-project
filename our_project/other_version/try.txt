@@ -1,0 +1,71 @@
+<section class="container">
+            <div class="div_right">
+                <form method="post" action="/CDC/CDCinquire_close_region" style="margin-top: -110px;">
+
+                    <ul class="div_right_bar">
+                        <h2>密接人员查询</h2>
+                        <li><label class="label_input">检测编号:</label><input type="number" name="test_id" required class="text_field" required/>
+                        </li>
+                        <li><button id="btn_search"style="cursor:pointer;margin-left: 275px;font-size:16px;letter-spacing:1px;"  type="submit">查找</button></li>
+                    </ul>
+                </form>
+
+
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+
+                {% for message in messages %}
+
+                <div class="alert alert-warning" style="text-align:center;font-size: 16px;">
+                    <a href="#" style="text-decoration: none;color: black" class="close" data-dismiss="alert">
+                        &times;
+                    </a>
+                    <strong>{{messages}}</strong>
+                </div>
+
+
+                {% endfor %}
+
+                {% endif %}
+                {% endwith %}
+
+
+            </div>
+
+
+
+            <div class="div_down">
+                <table class="table table-striped">
+                    <caption>查询结果</caption>
+                    <div class="panel-heading" style="padding: 0px 0px 10px 40px; display: block; font: 16px Georgia,  Times, serif; margin-left: 230px; font-weight: bold; color: rgb(11, 10, 10);">
+                        <h3 style="padding: 0px 0px 10px 40px;display: block;font: 35px Georgia,  Times, serif; margin-left: -57px;font-weight: bold; color: rgb(11, 10, 10);">查询结果</h3>
+                    </div>
+                    <thead>         
+                        <tr style="font-size:82%">
+                            <th>身份证号</th>
+                            <th>姓名</th>
+                            <th>联系电话</th>
+                            <th>性别</th>
+                            <th>出生日期</th>
+                            <th>居住地</th>
+                            <th>进入居住地时间</th>
+                            <th>离开居住地时间</th>
+                          
+                        </tr>
+                    </thead>
+                    <tbody>
+                      
+                            {% for i in close_resident_info %}
+                            <tr>
+                                {% for j in i %}
+                                <td>{{ j }}</td>
+                                {% endfor %}
+                            </tr>
+                            {% endfor %}
+                            
+                        
+                    </tbody>
+                </table>
+                
+            </div>
+        </section>

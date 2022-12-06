@@ -10,20 +10,23 @@
     <script src="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/js/bootstrap.bundle.min.js"></script>
     <style>
         body {
-            min-height: 100vh;
-            min-height: -webkit-fill-available
+            /* min-height: 100vh; */
+            /* min-height: -webkit-fill-available */
+            height:100%;
+            /* height: -webkit-fill-available */
+            display: table;
         }
-
         html {
-            height: -webkit-fill-available
+            height:100%;
+            /* height: -webkit-fill-available */
+            display: table;
         }
-
         main {
             display: flex;
             flex-wrap: nowrap;
-            height: 100vh;
-            height: -webkit-fill-available;
-            max-height: 100vh;
+            height: 100%;
+            /* height: -webkit-fill-available; */
+            /* max-height: 100vh; */
             overflow-x: auto;
             overflow-y: hidden
         }
@@ -208,7 +211,7 @@
     <main>
 
 
-        <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px;height:680px">
+        <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px;">
             <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
             <span class="fs-4" style="margin-left: 20px;">疾控中心工作人员</span></span>
             </a>
