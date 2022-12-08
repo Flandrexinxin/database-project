@@ -239,7 +239,7 @@
                      </a>
                  </li>
                  <li>
-                     <a href="{{ url_for('CDC.CDCinquire_positive') }}" class="nav-link active">
+                     <a href="{{ url_for('CDC.CDCinquire_positive') }}" class="nav-link text-white">
                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-virus" viewBox="0 0 16 16">
                              <path fill-rule="evenodd" d="M8 0a1 1 0 0 1 1 1v1.402c0 .511.677.693.933.25l.7-1.214a1 1 0 0 1 1.733 1l-.701 1.214c-.256.443.24.939.683.683l1.214-.701a1 1 0 0 1 1 1.732l-1.214.701c-.443.256-.262.933.25.933H15a1 1 0 1 1 0 2h-1.402c-.512 0-.693.677-.25.933l1.214.701a1 1 0 1 1-1 1.732l-1.214-.7c-.443-.257-.939.24-.683.682l.701 1.214a1 1 0 1 1-1.732 1l-.701-1.214c-.256-.443-.933-.262-.933.25V15a1 1 0 1 1-2 0v-1.402c0-.512-.677-.693-.933-.25l-.701 1.214a1 1 0 0 1-1.732-1l.7-1.214c.257-.443-.24-.939-.682-.683l-1.214.701a1 1 0 1 1-1-1.732l1.214-.701c.443-.256.261-.933-.25-.933H1a1 1 0 1 1 0-2h1.402c.511 0 .693-.677.25-.933l-1.214-.701a1 1 0 1 1 1-1.732l1.214.701c.443.256.939-.24.683-.683l-.701-1.214a1 1 0 0 1 1.732-1l.701 1.214c.256.443.933.261.933-.25V1a1 1 0 0 1 1-1Zm2 5a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM6 7a1 1 0 1 1-2 0 1 1 0 0 1 2 0Zm1 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2Zm5-3a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"/>
                            </svg>
@@ -256,7 +256,7 @@
                      </a>
                  </li>
                  <li>
-                     <a href="{{ url_for('CDC.CDCinquire_close') }}" class="nav-link text-white">
+                     <a href="{{ url_for('CDC.CDCinquire_close') }}" class="nav-link active">
                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-exclamation" viewBox="0 0 16 16">
                              <path d="M7.293 1.5a1 1 0 0 1 1.414 0L11 3.793V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v3.293l2.354 2.353a.5.5 0 0 1-.708.708L8 2.207l-5 5V13.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 2 13.5V8.207l-.646.647a.5.5 0 1 1-.708-.708L7.293 1.5Z"/>
                              <path fill-rule="evenodd" d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-3.5-2a.5.5 0 0 1 .5.5v1.5a.5.5 0 1 1-1 0V11a.5.5 0 0 1 .5-.5Zm0 4a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1Z"/>
@@ -292,7 +292,7 @@
 
                     <ul class="div_right_bar">
                         <h2>时空密接查询</h2>
-                        <li><label class="label_input">身份证号:</label><input type="text" name="identity" class="text_field" required/>
+                        <li><label class="label_input">身份证号:</label><input type="text" name="street" class="text_field" />
                         </li>
 
                         <li><label class="label_input">开始时间:</label><input type="datetime-local" name="begin_time" value="" class="text_field" required/>
@@ -335,6 +335,12 @@
                     <caption>查询结果</caption>
                     <div class="panel-heading" style="padding: 0px 0px 10px 40px; display: block; font: 16px Georgia,  Times, serif; margin-left: 230px; font-weight: bold; color: rgb(11, 10, 10);">
                         <h3 style="padding: 0px 0px 10px 40px;display: block;font: 35px Georgia,  Times, serif; margin-left: -57px;font-weight: bold; color: rgb(11, 10, 10);">查询结果</h3>
+                        <div class="submit_file" style="margin-left:-300px;margin-top: 50px;font-size: 14px;">
+                            <form action="/CDC/CDCdownload" method="POST" enctype="multipart/form-data">
+                                <!-- <input type="file" name="file"  /> -->
+                                <input type="submit" value="导出结果" />
+                            </form>
+                        </div>
                     </div>
                     <thead>         
                         <tr style="font-size:82%">

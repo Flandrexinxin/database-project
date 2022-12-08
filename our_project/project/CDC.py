@@ -1,7 +1,7 @@
 import functools
 
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, session, url_for
+    Blueprint, flash, g, redirect, render_template, request, session, url_for, send_file, make_response
 )
 from project.db import(
     get_resident_info_name,get_resident_info_identity,get_resident_info_region,
@@ -10,6 +10,7 @@ from project.db import(
 from project.auth import(
     login_required
 )
+import csv
 bp = Blueprint('CDC', __name__)
 
 @bp.route('/CDC/main',methods = ('GET', 'POST'))
@@ -50,9 +51,20 @@ def CDCinquire_resident():
             if(length==0):
                 error = '查询结果为空，请检查输入信息'
             else:
+                header = ['身份证号','姓名','联系电话','性别','出生日期','居住地','进入居住地时间','离开居住地时间']
+                with open('instance/inquire_result.csv','w') as result_file:
+                    writer = csv.writer(result_file)
+                    writer.writerow(header)
+                    for i in range(length):
+                        if resident_info[i][7] is None:
+                            data = [resident_info[i][0],resident_info[i][1],resident_info[i][2],resident_info[i][3],resident_info[i][4],resident_info[i][5],resident_info[i][6],'暂未离开']
+                        else:
+                            data = [resident_info[i][0],resident_info[i][1],resident_info[i][2],resident_info[i][3],resident_info[i][4],resident_info[i][5],resident_info[i][6],resident_info[i][7]]
+                        writer.writerow(data)
                 return render_template('CDC/CDCinquire_resident.html',length=length,resident_info=resident_info,user_name=user_name)  
         flash(error)
     return render_template('CDC/CDCinquire_resident.html',user_name=user_name)
+
 #根据时间范围或地区查询阳性病例
 @bp.route('/CDC/CDCinquire_positive',methods=('GET','POST'))
 @login_required 
@@ -78,9 +90,20 @@ def CDCinquire_positive():
             if(length==0):
                 error = '未查询到阳性病例'
             else:
+                header = ['身份证号','姓名','联系电话','性别','出生日期','居住地','进入居住地时间','离开居住地时间']
+                with open('instance/inquire_result.csv','w') as result_file:
+                    writer = csv.writer(result_file)
+                    writer.writerow(header)
+                    for i in range(length):
+                        if ill_info[i][7] is None:
+                            data = [ill_info[i][0],ill_info[i][1],ill_info[i][2],ill_info[i][3],ill_info[i][4],ill_info[i][5],ill_info[i][6],'暂未离开']
+                        else:
+                            data = [ill_info[i][0],ill_info[i][1],ill_info[i][2],ill_info[i][3],ill_info[i][4],ill_info[i][5],ill_info[i][6],ill_info[i][7]]
+                        writer.writerow(data)
                 return render_template('CDC/CDCinquire_positive.html',length=length,ill_info=ill_info,user_name=user_name)
         flash(error)
     return render_template('CDC/CDCinquire_positive.html',user_name=user_name) 
+
 #输入病例的检测编号，根据其居住地排查检测时间前后7天与阳性病例居住在同一小区的居民信息
 @bp.route('/CDC/CDCinquire_close_region',methods=('GET','POST'))
 @login_required
@@ -97,9 +120,21 @@ def CDCinquire_close_region():
             length = len(close_resident_info)
             if(length==0):
                 error = '未查询到与该阳性病例前后七天内居住在同一小区的居民'
-            return render_template('CDC/CDCinquire_close_region.html',length=length,close_resident_info=close_resident_info,user_name=user_name)
+            else:
+                header = ['身份证号','姓名','联系电话','性别','出生日期','居住地','进入居住地时间','离开居住地时间']
+                with open('instance/inquire_result.csv','w') as result_file:
+                    writer = csv.writer(result_file)
+                    writer.writerow(header)
+                    for i in range(length):
+                        if close_resident_info[i][7] is None:
+                            data = [close_resident_info[i][0],close_resident_info[i][1],close_resident_info[i][2],close_resident_info[i][3],close_resident_info[i][4],close_resident_info[i][5],close_resident_info[i][6],'暂未离开']
+                        else:
+                            data = [close_resident_info[i][0],close_resident_info[i][1],close_resident_info[i][2],close_resident_info[i][3],close_resident_info[i][4],close_resident_info[i][5],close_resident_info[i][6],close_resident_info[i][7]]
+                        writer.writerow(data)
+                return render_template('CDC/CDCinquire_close_region.html',length=length,close_resident_info=close_resident_info,user_name=user_name)
         flash(error)
     return render_template('CDC/CDCinquire_close_region.html',user_name=user_name)
+
 #输入病例的身份证号以及排查的时间范围，查询与该病例在指定时间范围内存在时空密接的人员
 @bp.route('/CDC/CDCinquire_close',methods=('GET','POST'))
 @login_required
@@ -115,9 +150,32 @@ def CDCinquire_close():
         if length == 0:
             error = '未查询到相关信息，请再次检查输入'
         else:
+            header = ['身份证号','姓名','联系电话','性别','出生日期','居住地','进入居住地时间','离开居住地时间']
+            with open('instance/inquire_result.csv','w') as result_file:
+                writer = csv.writer(result_file)
+                writer.writerow(header)
+                for i in range(length):
+                    if close_people_info[i][7] is None:
+                        data = [close_people_info[i][0],close_people_info[i][1],close_people_info[i][2],close_people_info[i][3],close_people_info[i][4],close_people_info[i][5],close_people_info[i][6],'暂未离开']
+                    else:
+                        data = [close_people_info[i][0],close_people_info[i][1],close_people_info[i][2],close_people_info[i][3],close_people_info[i][4],close_people_info[i][5],close_people_info[i][6],close_people_info[i][7]]
+                    writer.writerow(data)
             return render_template('CDC/CDCinquire_close.html',length=length,close_people_info=close_people_info,user_name=user_name)
         flash(error)
     return render_template('CDC/CDCinquire_close.html',user_name=user_name)
+
+# 下载查询结果
+@bp.route('/CDC/CDCdownload',methods = ('GET', 'POST'))
+@login_required
+def DBdownload():
+    if request.method == 'POST':
+        print("why?")
+        user_name = session['user_name']
+        # return send_from_directory(r"C:\\Users\\Lenovo\\gitee\\database-project\\our_project\\instance","new_account.csv")
+        from flask import send_file 
+        download_path = '../instance/inquire_result.csv' 
+        response = make_response(send_file(download_path))
+        return response
 
 
         

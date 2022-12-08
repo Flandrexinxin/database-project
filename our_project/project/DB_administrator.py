@@ -137,16 +137,17 @@ def DBaddstreet():
                         streets.append(row[1])
                     print(num)
                     print(user_names)
-                new_account = create_password(num)          #生成新的账号密码
-                add_staff(new_account,'street manager',user_names,streets)     #将新的用户加入数据库的基本表
-                header = ['姓名','账号','密码','用户类别']
-                with open('instance/new_account.csv','w') as new:
-                    writer = csv.writer(new)
-                    writer.writerow(header)
-                    for i in range(num):
-                        data = [user_names[i],new_account[i][0],new_account[i][1],'街道工作人员']
-                        writer.writerow(data)
-                return redirect(url_for('DB_administrator.DBdownload',next=request.url))
+                if error is None:
+                    new_account = create_password(num)          #生成新的账号密码
+                    add_staff(new_account,'street manager',user_names,streets)     #将新的用户加入数据库的基本表
+                    header = ['姓名','账号','密码','用户类别']
+                    with open('instance/new_account.csv','w') as new:
+                        writer = csv.writer(new)
+                        writer.writerow(header)
+                        for i in range(num):
+                            data = [user_names[i],new_account[i][0],new_account[i][1],'街道工作人员']
+                            writer.writerow(data)
+                    return redirect(url_for('DB_administrator.DBdownload',next=request.url))
             flash(error)
     return render_template('DB_administrator/DBaddstreet.html',user_name=user_name) 
 

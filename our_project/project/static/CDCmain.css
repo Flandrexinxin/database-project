@@ -136,7 +136,7 @@ div{
     flex-direction: column;  /* 按照列column(垂直方向)排列*/
     overflow: auto;
     /*------------*/
-    margin: 30px 15px 30px 0px;
+    /* margin: 30px 15px 30px 0px; */
     border-radius: 5px;
 
     /*------------*/
