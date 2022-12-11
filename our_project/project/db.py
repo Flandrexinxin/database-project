@@ -401,4 +401,14 @@ def delete_user(the_account):
         cursor.execute(sql)
         conn.commit()
     cursor.close()
-    close_db(conn)          
+    close_db(conn)      
+
+def get_account_street(account):
+    conn = get_db()
+    cursor = conn.cursor()
+    sql = 'select street from staff where account = "%s"'%(account)
+    cursor.execute(sql)
+    ret = cursor.fetchall()
+    cursor.close()
+    close_db(conn) 
+    return ret    
