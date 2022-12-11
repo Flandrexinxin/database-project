@@ -6,10 +6,12 @@ from werkzeug.utils import secure_filename
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
-from db.py import(
-    get_resident_info_name,get_resident_info_identity,get_resident_info_region
-)
+from project.db import(medical_check,medical_typein,medical_cover)
+
+from project.auth import( login_required )
+
 bp = Blueprint('medical', __name__)
+
 
 
 @bp.route('/medical/main',method = ('GET','POST'))
