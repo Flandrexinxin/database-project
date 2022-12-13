@@ -1,4 +1,3 @@
-<!-- medical staff主页 -->
 <!DOCTYPE html>
 <html>
 
@@ -224,7 +223,7 @@
             <hr>
             <ul class="nav nav-pills flex-column mb-auto">
                 <li class="nav-item">
-                    <a href="{{ url_for('medical.main')}}" class="nav-link active" aria-current="page">
+                    <a href="{{ url_for('medical.medicalmain')}}" class="nav-link active" aria-current="page">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-columns-gap" viewBox="0 0 16 16">
                             <path
@@ -234,7 +233,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="nav-link text-white">
+                    <a href="{{ url_for('medical.medical_single_upload')}}" class="nav-link text-white">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-clipboard-data" viewBox="0 0 16 16">
                             <path
@@ -245,6 +244,20 @@
                                 d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
                         </svg>
                         &nbsp核酸检测结果录入
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('medical.medical_csv_upload')}}" class="nav-link text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-clipboard-data" viewBox="0 0 16 16">
+                            <path
+                                d="M4 11a1 1 0 1 1 2 0v1a1 1 0 1 1-2 0v-1zm6-4a1 1 0 1 1 2 0v5a1 1 0 1 1-2 0V7zM7 9a1 1 0 0 1 2 0v3a1 1 0 1 1-2 0V9z" />
+                            <path
+                                d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
+                            <path
+                                d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
+                        </svg>
+                        &nbsp从文件批量录入
                     </a>
                 </li>
 
@@ -267,76 +280,60 @@
                 </ul>
             </div>
         </div>
-       
+        <div class="1" style="margin-left:40px;margin-top: 50px;width:200px; ">
+            <div class="positive_cube" style="background-color: rgb(0,166,90);height:110px;">
+                <a class="nav-link text-white" href="{{ url_for('medical.medical_single_upload') }}" style="margin-left:10px;font-size:150%">
+                    核酸检测结果录入
+                    <!-- <svg class="bi me-2" width="50" height="50" style="margin-left:50px;color:rgb(0,141,77)" >
+                     <use xlink:href="#speedometer2" />
+                    </svg> -->
+                    <svg xmlns="http://www.w3.org/2000/svg" style="margin-top:10px;margin-left:50px;color:rgb(0,141,77)"
+                        width="40" height="40" fill="currentColor" width="16" height="16" fill="currentColor"
+                        class="bi bi-clipboard-data" viewBox="0 0 16 16">
+                        <path
+                            d="M4 11a1 1 0 1 1 2 0v1a1 1 0 1 1-2 0v-1zm6-4a1 1 0 1 1 2 0v5a1 1 0 1 1-2 0V7zM7 9a1 1 0 0 1 2 0v3a1 1 0 1 1-2 0V9z" />
+                        <path
+                            d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
+                        <path
+                            d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
+                    </svg>
+                </a>
+            </div>
+            <div class="go" style="background-color: rgb(0,149,81);height:30px;">
+                <a class="nav-link text-white" href="{{ url_for('medical.medical_single_upload') }}"
+                    style="font-size:13px; margin-top:-5px;margin-left: 53px; font-family: 幼圆;">
+                    进入页面
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-arrow-right-circle" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z" />
+                    </svg>
+                </a>
+            </div>
         </div>
 
-        <section class="container">
-            <div class="div_right">
-
-                <form class="row g-3" method="post" action="/medical/main">
-                    <ul class="div_right_bar">
-                        <h2>核酸检测结果录入</h2>
-                        <li><label class="label_input">身份证号:</label><input type="text" name="id" class="text_field" />
-                        </li>
-
-                        <li><label class="label_input">检测时间:</label><input type="datetime-local" name="datetime"
-                                value="" class="text_field" />
-
-                        </li>
-                        <li><label class="label_input">检测结果:</label>
-                            <select name="result" id="row1">
-                                <option value="阴">阴性</option>
-                                <option value="阳">阳性</option>
-
-
-                            </select>
-                        </li>
-                        <li><label class="label_input">检测编号:</label>
-                            <input type="text" name="sample_num" class="text_field" />
-                        </li>
-                        <li><label class="label_input">从文件批量导入:</label><input type="file" name="file" />
-
-         
-                       </li>
-
-                        <li><button id="btn_search"
-                                style="cursor:pointer;margin-left: 275px;font-size:16px;letter-spacing:1px;"
-                                type="submit">提交</button></li>
-
-                    </ul>
-
-
-                </form>
-
-
-                {% with messages = get_flashed_messages() %}
-                {% if messages %}
-
-                {% for message in messages %}
-
-                <div class="alert alert-warning"
-                    style="text-align:center;font-size: 16px;height: fit-content;width: fit-content;margin:auto;">
-                    <a href="#" style="text-decoration: none;color: black" class="close" data-dismiss="alert">
-                        &times;
-                    </a>
-                    <strong>{{messages}}</strong>
-                </div>
-
-
-                {% endfor %}
-
-                {% endif %}
-                {% endwith %}
-
-                <div class="div_down">
-
-                </div>
+        <div class="2" style="margin-left:40px;margin-top: 50px;width:200px; ">
+            <div class="positive_cube" style="background-color: rgb(221,75,57);height:110px;">
+                <a class="nav-link text-white" href="{{ url_for('medical.medical_csv_upload') }}" style="margin-left:10px;font-size:150%">
+                    从文件批量导入
+                    <!-- <svg class="bi me-2" width="50" height="50" style="margin-left:50px;color:rgb(0,141,77)" >
+                     <use xlink:href="#speedometer2" />
+                    </svg> -->
+                    <svg xmlns="http://www.w3.org/2000/svg" style="margin-top:10px;margin-left:50px;color:rgb(188,64,49)" width="40" height="40" fill="currentColor" class="bi bi-virus" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M8 0a1 1 0 0 1 1 1v1.402c0 .511.677.693.933.25l.7-1.214a1 1 0 0 1 1.733 1l-.701 1.214c-.256.443.24.939.683.683l1.214-.701a1 1 0 0 1 1 1.732l-1.214.701c-.443.256-.262.933.25.933H15a1 1 0 1 1 0 2h-1.402c-.512 0-.693.677-.25.933l1.214.701a1 1 0 1 1-1 1.732l-1.214-.7c-.443-.257-.939.24-.683.682l.701 1.214a1 1 0 1 1-1.732 1l-.701-1.214c-.256-.443-.933-.262-.933.25V15a1 1 0 1 1-2 0v-1.402c0-.512-.677-.693-.933-.25l-.701 1.214a1 1 0 0 1-1.732-1l.7-1.214c.257-.443-.24-.939-.682-.683l-1.214.701a1 1 0 1 1-1-1.732l1.214-.701c.443-.256.261-.933-.25-.933H1a1 1 0 1 1 0-2h1.402c.511 0 .693-.677.25-.933l-1.214-.701a1 1 0 1 1 1-1.732l1.214.701c.443.256.939-.24.683-.683l-.701-1.214a1 1 0 0 1 1.732-1l.701 1.214c.256.443.933.261.933-.25V1a1 1 0 0 1 1-1Zm2 5a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM6 7a1 1 0 1 1-2 0 1 1 0 0 1 2 0Zm1 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2Zm5-3a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"/>
+                      </svg>
+                </a>   
             </div>
+            <div class="go" style="background-color: rgb(198,67,51);height:30px;">
+                <a class="nav-link text-white" href="{{ url_for('medical.medical_csv_upload') }}" style="font-size:13px; margin-top:-5px;margin-left: 53px; font-family: 幼圆;">
+                    进入查询
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-circle" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
+                      </svg>
+                </a> 
+            </div>
+        </div>
 
-
-
-
-        </section>
 
 
 
