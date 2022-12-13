@@ -14,12 +14,12 @@ bp = Blueprint('medical', __name__)
 
 
 
-@bp.route('/medical/main',method = ('GET','POST'))
+@bp.route('/medical/main',methods = ('GET','POST'))
 @login_required
 def medicalmain():
-    return render_template('medical/main.html',posts=posts)
+    return render_template('medical/medicalmain.html')
 
-@bp.route('/medical/main',method = ('GET','POST'))
+@bp.route('/medical/main',methods = ('GET','POST'))
 @login_required
 def main():
     if request.method == 'POST':

@@ -35,8 +35,8 @@ def create_app(test_config=None):
     app.register_blueprint(CDC.bp)
     from . import DB_administrator
     app.register_blueprint(DB_administrator.bp)
-    # from . import medical
-    # app.register_blueprint(medical.bp)
+    from . import medical
+    app.register_blueprint(medical.bp)
     # from . import street
     # app.register_blueprint(street.bp)
     app.add_url_rule('/',endpoint='login')
