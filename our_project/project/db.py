@@ -49,7 +49,7 @@ def add_staff(new_account,staff_type,account_name,street='NULL'):
     for i in range(len(new_account)):
         se_password=generate_password_hash(new_account[i][1])
         sql='insert into staff(account,password,type,street,name) values(%s,%s,%s,%s,%s)'
-        cursor.execute(sql,(new_account[i][0],se_password,staff_type,street,account_name[i]))
+        cursor.execute(sql,(new_account[i][0],se_password,staff_type,street[i],account_name[i]))
         conn.commit()
 
     cursor.close()
