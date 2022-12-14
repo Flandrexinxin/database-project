@@ -33,10 +33,10 @@ def DBaddmedical():
     if request.method == 'POST':
         uploaded_file = request.files['file']
         filename = secure_filename(uploaded_file.filename)
-        print(filename)
-        if filename != '':
+        if filename == '':
+            error = '未提交文件'
+        else:
             file_ext = os.path.splitext(filename)[1]
-            print(file_ext)
             if file_ext != '.csv':
                  error = "仅支持csv文件的上传"
             if error is None:
@@ -45,21 +45,23 @@ def DBaddmedical():
                 with open(file_path) as csvfile:
                     csv_reader = csv.reader(csvfile)  # 使用csv.reader读取csvfile中的文件
                     for row in csv_reader:            # 将csv文件中的数据保存到data中
-                        num = num+1
-                        user_names.append(row[0])         
-                    print(num)
-                    print(user_names)
-                new_account = create_password(num)          #生成新的账号密码
-                add_staff(new_account,'medical staff',user_names)     #将新的用户加入数据库的基本表
-                header = ['姓名','账号','密码','用户类别']
-                with open('instance/new_account.csv','w') as new:
-                    writer = csv.writer(new)
-                    writer.writerow(header)
-                    for i in range(num):
-                        data = [user_names[i],new_account[i][0],new_account[i][1],'医务人员']
-                        writer.writerow(data)
-                return redirect(url_for('DB_administrator.DBdownload',next=request.url))
-            flash(error)
+                        if len(row)!=1:
+                            error = '文件格式有误，请保证每行仅包含一个用户姓名'
+                        else:
+                            num = num+1
+                            user_names.append(row[0])  
+                if error is None:
+                    new_account = create_password(num)          #生成新的账号密码
+                    add_staff(new_account,'medical staff',user_names)     #将新的用户加入数据库的基本表
+                    header = ['姓名','账号','密码','用户类别']
+                    with open('instance/new_account.csv','w') as new:
+                        writer = csv.writer(new)
+                        writer.writerow(header)
+                        for i in range(num):
+                            data = [user_names[i],new_account[i][0],new_account[i][1],'医务人员']
+                            writer.writerow(data)
+                    return redirect(url_for('DB_administrator.DBdownload',next=request.url))
+        flash(error)
     return render_template('DB_administrator/DBaddmedical.html',user_name=user_name)    
 
 
@@ -72,15 +74,13 @@ def DBaddCDC():
     user_names = []
     num =0
     if request.method == 'POST':
-        print("file")
         uploaded_file = request.files['file']
         filename = secure_filename(uploaded_file.filename)
-        print(filename)
-        if filename != '':
+        if filename == '':
+            error = '未提交文件'
+        else:
             file_ext = os.path.splitext(filename)[1]
-            print(file_ext)
             if file_ext != '.csv':
-                 print("error")
                  error = "仅支持csv文件的上传"
             if error is None:
                 uploaded_file.save(os.path.join('instance', filename))
@@ -88,21 +88,23 @@ def DBaddCDC():
                 with open(file_path) as csvfile:
                     csv_reader = csv.reader(csvfile)  # 使用csv.reader读取csvfile中的文件
                     for row in csv_reader:            # 将csv文件中的数据保存到data中
-                        num = num+1
-                        user_names.append(row[0])           # 选择某一列加入到data数组中
-                    print(num)
-                    print(user_names)
-                new_account = create_password(num)          #生成新的账号密码
-                add_staff(new_account,'CDC staff',user_names)     #将新的用户加入数据库的基本表
-                header = ['姓名','账号','密码','用户类别']
-                with open('instance/new_account.csv','w') as new:
-                    writer = csv.writer(new)
-                    writer.writerow(header)
-                    for i in range(num):
-                        data = [user_names[i],new_account[i][0],new_account[i][1],'疾控中心工作人员']
-                        writer.writerow(data)
-                return redirect(url_for('DB_administrator.DBdownload',next=request.url))
-            flash(error)
+                        if len(row) !=1:
+                            error = '文件格式有误，请保证每行仅包含一个用户姓名'
+                        else:
+                            num = num+1
+                            user_names.append(row[0])           # 选择某一列加入到data数组中
+                if error is None:
+                    new_account = create_password(num)          #生成新的账号密码
+                    add_staff(new_account,'CDC staff',user_names)     #将新的用户加入数据库的基本表
+                    header = ['姓名','账号','密码','用户类别']
+                    with open('instance/new_account.csv','w') as new:
+                        writer = csv.writer(new)
+                        writer.writerow(header)
+                        for i in range(num):
+                            data = [user_names[i],new_account[i][0],new_account[i][1],'疾控中心工作人员']
+                            writer.writerow(data)
+                    return redirect(url_for('DB_administrator.DBdownload',next=request.url))
+        flash(error)
     return render_template('DB_administrator/DBaddCDC.html',user_name=user_name) 
 
 
@@ -116,15 +118,13 @@ def DBaddstreet():
     streets = []
     num = 0
     if request.method == 'POST':
-        print("file")
         uploaded_file = request.files['file']
         filename = secure_filename(uploaded_file.filename)
-        print(filename)
-        if filename != '':
+        if filename == '':
+            error = '未提交文件'
+        else:
             file_ext = os.path.splitext(filename)[1]
-            print(file_ext)
             if file_ext != '.csv':
-                 print("error")
                  error = "仅支持csv文件的上传"
             if error is None:
                 uploaded_file.save(os.path.join('instance', filename))
@@ -132,11 +132,12 @@ def DBaddstreet():
                 with open(file_path) as csvfile:
                     csv_reader = csv.reader(csvfile)  # 使用csv.reader读取csvfile中的文件
                     for row in csv_reader:            # 将csv文件中的数据保存到data中
-                        num = num+1
-                        user_names.append(row[0])           # 选择某一列加入到data数组中
-                        streets.append(row[1])
-                    print(num)
-                    print(user_names)
+                        if len(row)!=2:
+                            error = '文件格式有误，请保证每行包含且仅包含一组用户姓名和管辖街道'
+                        else:
+                            num = num+1
+                            user_names.append(row[0])           # 选择某一列加入到data数组中
+                            streets.append(row[1])
                 if error is None:
                     new_account = create_password(num)          #生成新的账号密码
                     add_staff(new_account,'street manager',user_names,streets)     #将新的用户加入数据库的基本表
@@ -148,7 +149,7 @@ def DBaddstreet():
                             data = [user_names[i],new_account[i][0],new_account[i][1],'街道工作人员',streets[i]]
                             writer.writerow(data)
                     return redirect(url_for('DB_administrator.DBdownload',next=request.url))
-            flash(error)
+        flash(error)
     return render_template('DB_administrator/DBaddstreet.html',user_name=user_name) 
 
 
@@ -161,15 +162,13 @@ def DBaddDB():
     user_names = []
     num =0
     if request.method == 'POST':
-        print("file")
         uploaded_file = request.files['file']
         filename = secure_filename(uploaded_file.filename)
-        print(filename)
-        if filename != '':
+        if filename == '':
+            error = '未提交文件'
+        else:
             file_ext = os.path.splitext(filename)[1]
-            print(file_ext)
             if file_ext != '.csv':
-                 print("error")
                  error = "仅支持csv文件的上传"
             if error is None:
                 uploaded_file.save(os.path.join('instance', filename))
@@ -177,21 +176,23 @@ def DBaddDB():
                 with open(file_path) as csvfile:
                     csv_reader = csv.reader(csvfile)  # 使用csv.reader读取csvfile中的文件
                     for row in csv_reader:            # 将csv文件中的数据保存到data中
-                        num = num+1
-                        user_names.append(row[0])           # 选择某一列加入到data数组中
-                    print(num)
-                    print(user_names)
-                new_account = create_password(num)          #生成新的账号密码
-                add_staff(new_account,'super manager',user_names)     #将新的用户加入数据库的基本表
-                header = ['姓名','账号','密码','用户类别']
-                with open('instance/new_account.csv','w') as new:
-                    writer = csv.writer(new)
-                    writer.writerow(header)
-                    for i in range(num):
-                        data = [user_names[i],new_account[i][0],new_account[i][1],'系统管理员']
-                        writer.writerow(data)
-                return redirect(url_for('DB_administrator.DBdownload',next=request.url))
-            flash(error)
+                        if len(row) != 1:
+                            error = '文件格式有误，请保证每行仅包含一个用户姓名'
+                        else:
+                            num = num+1
+                            user_names.append(row[0])           # 选择某一列加入到data数组中
+                if error is None:
+                    new_account = create_password(num)          #生成新的账号密码
+                    add_staff(new_account,'super manager',user_names)     #将新的用户加入数据库的基本表
+                    header = ['姓名','账号','密码','用户类别']
+                    with open('instance/new_account.csv','w') as new:
+                        writer = csv.writer(new)
+                        writer.writerow(header)
+                        for i in range(num):
+                            data = [user_names[i],new_account[i][0],new_account[i][1],'系统管理员']
+                            writer.writerow(data)
+                    return redirect(url_for('DB_administrator.DBdownload',next=request.url))
+        flash(error)
     return render_template('DB_administrator/DBaddDB.html',user_name=user_name) 
 
 
@@ -217,21 +218,24 @@ def delete():
     if request.method == 'POST':
         uploaded_file = request.files['file']
         filename = secure_filename(uploaded_file.filename)
-        if filename != '':
+        if filename == '':
+            error = '未提交文件'
+        else:
             file_ext = os.path.splitext(filename)[1]
             if file_ext != '.csv':
-                 print("error")
                  error = "仅支持csv文件的上传"
             if error is None:
                 uploaded_file.save(os.path.join('instance', filename))
                 file_path = os.path.join('instance',filename)
                 with open(file_path) as csvfile:
                     csv_reader = csv.reader(csvfile)  # 使用csv.reader读取csvfile中的文件
-                    for row in csv_reader:            # 将csv文件中的数据保存到data中
-                        user_accounts.append(row[0])           # 选择某一列加入到data数组   
-                delete_user(user_accounts) 
-                print("hey")
-            flash(error)  
-    print("what happened??")      
+                    for row in csv_reader:            # 将csv文件中的数据保存到data
+                        if len(row) != 1:
+                            error = '文件格式有误，请保证每行仅包含一个账号'
+                        else:
+                            user_accounts.append(row[0])           # 选择某一列加入到data数组   
+                if error is None:
+                    delete_user(user_accounts) 
+        flash(error)  
     return render_template('DB_administrator/delete.html',user_name=user_name) 
 
