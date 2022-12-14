@@ -6,7 +6,7 @@ from werkzeug.utils import secure_filename
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
-from project.db import(medical_check_csv,medical_check,medical_typein,medical_cover)
+from project.db import(medical_check,medical_typein,medical_cover,medical_check_csv)
 from project.auth import(
     login_required
 )
@@ -64,7 +64,7 @@ def medical_csv_upload():
         uploaded_file = request.files['file']
         filename = secure_filename(uploaded_file.filename)
         if filename == '':
-            error = '未提交文件'
+            flash("请提交文件")
         else:
             file_suf = os.path.splitext(filename)[1]
             if file_suf != '.csv':
@@ -72,28 +72,31 @@ def medical_csv_upload():
             else:
                 uploaded_file.save(os.path.join('instance', filename))
                 file_path = os.path.join('instance',filename)
-                with open(file_path,'r') as csvfile:
+                with open(file_path,'r',encoding='gbk') as csvfile:
                     reader = csv.reader(csvfile)
                     print("im come in")
-                    next(reader)#去除索引
-                    for row in reader:
-                        print(row)
+                    index = next(reader)#去除索引
+                    if len(index) != 4:
+                        flash("上传的文件应当为4列，请检查")
+                    else:
+                        for row in reader:
+                            print(row)
                         # row[1] = '2022-10-20 12:00'
                         # print(row[1])
-                        if medical_check_csv(row[0],row[1],row[2],row[3]) == True:
-                            print("im right")
-                            if medical_typein(row[0],row[1],row[2],row[3]) == True:
-                                flag = 0
+                            if medical_check_csv(row[0],row[1],row[2],row[3]) == True:
+                                print("im right")
+                                if medical_typein(row[0],row[1],row[2],row[3]) == True:
+                                    flag = 0
+                                else:
+                                    flag = 1
+                                    flash("上传文件中不应有已上传过的检测号，若需覆盖，请单条上传")
+                                    break
                             else:
                                 flag = 1
-                                flash("上传文件中不应有已上传过的检测号，若需覆盖，请单条上传")
+                                flash("存在信息格式不正确，导入中断，请检查")
                                 break
-                        else:
-                            flag = 1
-                            flash("信息格式不正确，导入失败，请检查")
-                            break
-                    print(flag)
-                    if flag == 0:
-                        flash("核酸结果导入成功！")
-        flash(error)                    
+                        print(flag)
+                        if flag == 0:
+                            flash("核酸结果导入成功！")
+                    
     return render_template('medical/medical_csv_upload.html',user_name=user_name)
