@@ -284,26 +284,18 @@
 
         <section class="container">
             <div class="div_right">
-
-                <form class="row g-3" method="post" action="/medical/medical_csv_upload" enctype="multipart/form-data">
-                    <ul class="div_right_bar">
-                        <h2>从文件批量导入</h2>
-                        
-                        
-                        <li><input type="file" name="file" accept="text/csv"   style="margin-left: 275px;font-size: 16px;"/></li>
-
-         
-                       
-
-                        <li><button id="btn_search"
-                                style="cursor:pointer;margin-left: 275px;font-size:16px;letter-spacing:1px;"
-                                type="submit">提交</button></li>
-
-                    </ul>
-
-
-                </form>
-
+                <div class="tit" >
+                    <p style="padding: 0px 0px 10px 40px; display: block; font: 40px Georgia,  Times, serif;margin-top: 60px; margin-left: 180px; font-weight: bold; color: rgb(11, 10, 10);">
+                        从文件批量导入
+                    </p>
+                </div>  
+                <div class="submit_file" style="margin-left: 150px;margin-top: 50px;font-size: 20px;">
+                    <form action="/medical/medical_csv_upload" method="POST" enctype="multipart/form-data">
+                        <input type="file" name="file"  />
+                        <input type="submit" value="提交" />
+                    </form>
+                </div>
+            
 
                 {% with messages = get_flashed_messages() %}
                 {% if messages %}
@@ -311,11 +303,11 @@
                 {% for message in messages %}
 
                 <div class="alert alert-warning"
-                    style="text-align:center;font-size: 16px;height: fit-content;width: fit-content;margin:auto;">
+                    style="text-align:center;font-size: 16px;height: fit-content;width: fit-content;margin-top: 50px;margin-left:300px ;">
                     <a href="#" style="text-decoration: none;color: black" class="close" data-dismiss="alert">
-                        &times;
+                        <!-- &times; -->
                     </a>
-                    <strong>{{messages}}</strong>
+                    <strong>{{messages[0]}}</strong>
                 </div>
 
 
@@ -323,15 +315,7 @@
 
                 {% endif %}
                 {% endwith %}
-
-                <div class="div_down">
-
-                </div>
             </div>
-
-
-
-
         </section>
         
 

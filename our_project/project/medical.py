@@ -6,76 +6,94 @@ from werkzeug.utils import secure_filename
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
-from project.db import(medical_check,medical_typein,medical_cover)
-
-from project.auth import( login_required )
-
+from project.db import(medical_check_csv,medical_check,medical_typein,medical_cover)
+from project.auth import(
+    login_required
+)
 bp = Blueprint('medical', __name__)
 
 
-
-@bp.route('/medical/main',methods = ('GET','POST'))
+@bp.route('/medical/medicalmain',methods = ('GET','POST'))
 @login_required
 def medicalmain():
-    return render_template('medical/medicalmain.html')
+    user_name=session['user_name']
+    print("imhere")
+    return render_template('medical/medicalmain.html',user_name=user_name)
 
-@bp.route('/medical/main',methods = ('GET','POST'))
+@bp.route('/medical/medical_single_upload',methods = ('GET','POST'))
 @login_required
-def main():
+def medical_single_upload():
+    user_name=session['user_name']
     if request.method == 'POST':
+        print("helloquick!")
         pID = request.form['id']
         datetime = request.form['datetime']
         result = request.form['result']
         sample_num = request.form['sample_num']
-        uploaded_file = request.files['file']
         error = None
 
-        if result == '阴':
-            result = 0
-        if result == '阳':
-            result = 1
-        #输入上传
         if len(pID)==0 or len(datetime)==0 or len(result)==0 or len(sample_num)==0:
             error = '请输入完整的录入信息'
             flash(error)
+
         if error is None:
-            if medical_check(pID,data_time,result,sample_num) == False:#用户输入的信息格式错误
+            temp = list(datetime)
+            temp[10] = ' '
+            datetime = ''.join(temp)
+
+            print(datetime)
+            if medical_check(pID,datetime,result,sample_num) == False:#用户输入的信息格式错误
                 error = '请重新检查修正信息格式'
                 flash(error)
             else:
-                if medical_typein(pID,data_time,result,sample_num) == True:#成功录入
+                if medical_typein(pID,datetime,result,sample_num) == True:#成功录入
                     flash("录入成功!")
                 else:
                     #这里可能需要一个弹窗提示用户此条检测已存在，是否需要替换
-                    flash("This sample_num has been typed in")
-                    medical_cover(pID,data_time,result,sample_num)
-        
-        #文件上传
+                    flash("该条检测号已存在，现已覆盖")
+                    medical_cover(pID,datetime,result,sample_num)
+    return render_template('medical/medical_single_upload.html',user_name=user_name)
+    
+@bp.route('/medical/medical_csv_upload',methods = ('GET','POST'))
+@login_required
+def medical_csv_upload():
+    #文件上传
+    user_name=session['user_name']
+    if request.method == 'POST':
         flag = 0
+        uploaded_file = request.files['file']
         filename = secure_filename(uploaded_file.filename)
-        if filename != '':
+        if filename == '':
+            error = '未提交文件'
+        else:
             file_suf = os.path.splitext(filename)[1]
             if file_suf != '.csv':
                 flash("仅支持csv文件上传")
             else:
-                with open(uploaded_file,'r',encoding='utf-8') as csvfile:
+                uploaded_file.save(os.path.join('instance', filename))
+                file_path = os.path.join('instance',filename)
+                with open(file_path,'r') as csvfile:
                     reader = csv.reader(csvfile)
+                    print("im come in")
                     next(reader)#去除索引
                     for row in reader:
-                        row[2] = int(row[2])
-                        if medical_check(row[0],row[1],row[2],row[3]) == True:
+                        print(row)
+                        # row[1] = '2022-10-20 12:00'
+                        # print(row[1])
+                        if medical_check_csv(row[0],row[1],row[2],row[3]) == True:
+                            print("im right")
                             if medical_typein(row[0],row[1],row[2],row[3]) == True:
                                 flag = 0
                             else:
                                 flag = 1
+                                flash("上传文件中不应有已上传过的检测号，若需覆盖，请单条上传")
                                 break
                         else:
                             flag = 1
+                            flash("信息格式不正确，导入失败，请检查")
                             break
+                    print(flag)
                     if flag == 0:
                         flash("核酸结果导入成功！")
-                    else:
-                        flash("信息格式不正确，导入失败，请检查")
-    return render_template('medical/main.html')
-    
-    
+        flash(error)                    
+    return render_template('medical/medical_csv_upload.html',user_name=user_name)

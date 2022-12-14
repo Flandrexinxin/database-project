@@ -216,8 +216,6 @@
     </svg>
 
     <main>
-
-
         <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px;">
             <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
                 <span class="fs-4" style="margin-left: 20px;">疾控中心工作人员</span></span>
@@ -248,7 +246,6 @@
                         &nbsp核酸检测结果录入
                     </a>
                 </li>
-
                 <li>
                     <a href="{{ url_for('medical.medical_csv_upload')}}" class="nav-link text-white">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -263,7 +260,6 @@
                         &nbsp从文件批量录入
                     </a>
                 </li>
-
             </ul>
             <hr>
             <div class="dropdown">
@@ -287,7 +283,7 @@
         <section class="container">
             <div class="div_right">
 
-                <form class="row g-3" method="post" action="/medical/medical_single_upload">
+                <form class="row g-3" style="margin-left:50px" method="post" action="/medical/medical_single_upload">
                     <ul class="div_right_bar">
                         <h2>核酸检测结果录入</h2>
                         <li><label class="label_input">身份证号:</label><input type="text" name="id" class="text_field" />
@@ -311,7 +307,7 @@
         
 
                         <li><button id="btn_search"
-                                style="cursor:pointer;margin-left: 275px;font-size:16px;letter-spacing:1px;"
+                                style="cursor:pointer;margin-left: 285px;font-size:16px;letter-spacing:1px;"
                                 type="submit">提交</button></li>
 
                     </ul>
@@ -326,11 +322,11 @@
                 {% for message in messages %}
 
                 <div class="alert alert-warning"
-                    style="text-align:center;font-size: 16px;height: fit-content;width: fit-content;margin:auto;">
+                    style="text-align:center;font-size: 16px;height: fit-content;width: fit-content;margin-left:300px;">
                     <a href="#" style="text-decoration: none;color: black" class="close" data-dismiss="alert">
-                        &times;
+                        <!-- &times; -->
                     </a>
-                    <strong>{{messages}}</strong>
+                    <strong>{{messages[0]}}</strong>
                 </div>
 
 

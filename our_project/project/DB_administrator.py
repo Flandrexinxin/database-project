@@ -236,6 +236,7 @@ def delete():
                             user_accounts.append(row[0])           # 选择某一列加入到data数组   
                 if error is None:
                     delete_user(user_accounts) 
+                    flash('账号删除成功')
         flash(error)  
     return render_template('DB_administrator/delete.html',user_name=user_name) 
 

@@ -284,10 +284,22 @@ def get_resident_info_region(region,rtype):
 def medical_check(pID,datetime,result,tID):
     if len(pID)==18 and (result=='阴性' or result=='阳性') and len(tID)==10 and pID.isdecimal()==True and tID.isdecimal()==True:
         try:
-            dt.datetime.strptime(datetime,"%Y-%m-%d %H:%M:%S")
+            dt.datetime.strptime(datetime,"%Y-%m-%d %H:%M")
             return True
         except ValueError:
             return False
+    else:
+        return False
+
+#检查核酸结果格式是否正确
+def medical_check_csv(pID,datetime,result,tID):
+    if len(pID)==18 and (result=='阴性' or result=='阳性') and len(tID)==10 and pID.isdecimal()==True and tID.isdecimal()==True:
+        try:
+            dt.datetime.strptime(datetime,"%Y/%m/%d %H:%M")
+            return True
+        except ValueError:
+            return False
+        # return True
     else:
         return False
 
