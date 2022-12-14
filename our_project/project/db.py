@@ -424,3 +424,9 @@ def get_account_street(account):
     cursor.close()
     close_db(conn) 
     return ret    
+
+def check_resident_info(pid,name,phone,sex,birth,street,come_date,leave_date):
+    if len(pid)== 18 and len(name)<=10 and len(phone)==11 and (sex=='男' or sex=='女') and len(street)<21:
+        return True
+    else:
+        return False 
