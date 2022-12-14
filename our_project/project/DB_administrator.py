@@ -46,7 +46,7 @@ def DBaddmedical():
                     csv_reader = csv.reader(csvfile)  # 使用csv.reader读取csvfile中的文件
                     for row in csv_reader:            # 将csv文件中的数据保存到data中
                         num = num+1
-                        user_names.append(row[0])           # 选择某一列加入到data数组中
+                        user_names.append(row[0])           # 选择某一列加入到data数组
                     print(num)
                     print(user_names)
                 new_account = create_password(num)          #生成新的账号密码
