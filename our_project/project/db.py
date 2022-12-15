@@ -41,20 +41,27 @@ def get_user_tuple(account):
     return ret
 
 # add staff infomation into database
-def add_staff(new_account,staff_type,account_name,street='NULL'):
-    if(len(new_account)!=len(account_name)):
-        return 'lenth is not illegal'
-    conn=get_db()
-    cursor=conn.cursor(prepared=True)
+def add_staff(new_account,staff_type,account_name,street=None):
+  if(len(new_account)!=len(account_name)):
+    return 'lenth is not illegal'
+  conn=get_db()
+  cursor=conn.cursor(prepared=True)
+  if street==None:
     for i in range(len(new_account)):
-        se_password=generate_password_hash(new_account[i][1])
-        sql='insert into staff(account,password,type,street,name) values(%s,%s,%s,%s,%s)'
-        cursor.execute(sql,(new_account[i][0],se_password,staff_type,street[i],account_name[i]))
-        conn.commit()
+      se_password=generate_password_hash(new_account[i][1])
+      sql='insert into staff(account,password,type,street,name) values(%s,%s,%s,%s,%s)'
+      cursor.execute(sql,(new_account[i][0],se_password,staff_type,None,account_name[i]))
+      conn.commit()
+  else:
+    for i in range(len(new_account)):
+      se_password=generate_password_hash(new_account[i][1])
+      sql='insert into staff(account,password,type,street,name) values(%s,%s,%s,%s,%s)'
+      cursor.execute(sql,(new_account[i][0],se_password,staff_type,street[i],account_name[i]))
+      conn.commit()
 
-    cursor.close()
-    close_db(conn)
-    return
+  cursor.close()
+  close_db(conn)
+  return
 
 # create the number of amount accounts and passwords
 def create_password(amount):  

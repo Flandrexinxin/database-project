@@ -66,7 +66,7 @@ def change_pwd():
             if if_success == True:
                 flash('修改成功')
             else:
-                flash('修改失败')  
+                flash('密码不符合要求，须包含数字和字母')  
     return render_template('auth/change_pwd.html')  
                
 @bp.before_app_request
