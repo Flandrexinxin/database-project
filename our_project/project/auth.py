@@ -4,7 +4,7 @@ from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
 from project.db import (
-    check_account, get_user_tuple, get_user_name
+    check_account, get_user_tuple, get_user_name, change_password
 ) 
 # from werkzeug.security import check_password_hash, generate_password_hash
 
@@ -26,7 +26,7 @@ def login():
         if check_result == 'Not Exists':
             error = 'Account not exists.'
         elif check_result == 'wrong':
-            error = 'Incorrect password.'
+            error = 'Incorrect password'
         if error is None:
             session.clear()
             session['account'] = account
@@ -44,6 +44,31 @@ def login():
                 return redirect(url_for('DB_administrator.DBmain'))
         flash(error)
     return render_template('auth/login.html')          #返回登录页面
+
+@bp.route('/change_pwd',methods=('GET','POST'))
+def change_pwd():
+    if request.method == 'POST':
+        account = request.form['account']
+        old_pwd = request.form['old_pwd']
+        new_pwd = request.form['new_pwd']
+        new_pwd_repeat = request.form['new_pwd_repeat']
+        check_result = check_account(account,old_pwd)
+        if check_result == 'Not Exists':
+            error = '账号不存在'
+            flash(error)
+        elif check_result == 'wrong':
+            error = '密码输入错误' 
+            flash(error)
+        elif new_pwd != new_pwd_repeat:
+            error = '新密码输入不一致，请检查'
+        else:
+            if_success = change_password(account,new_pwd)
+            if if_success == True:
+                flash('修改成功')
+            else:
+                flash('修改失败')  
+    return render_template('auth/change_pwd.html')  
+               
 @bp.before_app_request
 def load_logged_in_user():
     user_account = session.get('account')

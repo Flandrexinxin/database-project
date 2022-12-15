@@ -430,3 +430,20 @@ def check_resident_info(pid,name,phone,sex,birth,street,come_date,leave_date):
         return True
     else:
         return False 
+def change_password(account,new_pwd):
+  if new_pwd.isdigit()==False and new_pwd.isalpha()==False:
+    conn = get_db() # Connecting to the Database
+    db = conn.cursor() # get the cursor
+
+    se_pwd=generate_password_hash(new_pwd)
+    sql = 'update staff set password=%s where account=%s'
+    db.execute(sql,(se_pwd,account))
+    conn.commit()
+
+    db.close()
+    close_db(conn)
+
+    return True
+  else:
+    return False
+
