@@ -26,27 +26,23 @@
 
                     <input type="hidden" name="next" value="" id="skip">
                     <a href="/change_pwd" class="forget_pwd" style="margin-left:-165px;">
-                        <span>修改密码</span>
+                        <span>修改密码</span></a>
+                        <div >
+                            {% with messages = get_flashed_messages() %}
+                                {% if messages %}
+                                    
+                                    {% for message in messages %}
+                                      <p class="flash_message" align="center" style="margin:0 auto; margin-top:20px ;width: 200px;height: 20px; padding:15px;border-radius: 5px;"> {{ message }}</p> 
+                                        
+                                      {% endfor %}
+                                    
+                                {% endif %}
+                            {% endwith %}
+                        </div>
                    
                 </div>
-                
-                
-
             </form>
         </div>
-        <div >
-            {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                    
-                    {% for message in messages %}
-                      <p class="flash_message" align="center" style="margin:0 auto;width: 200px;height: 20px; padding:15px;border-radius: 5px;"> {{ message }}</p> 
-                    {% endfor %}
-                    
-                {% endif %}
-            {% endwith %}
-        </div>
-        
-
     </div>
 
 </body>

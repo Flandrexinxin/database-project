@@ -296,13 +296,10 @@
 
                 {% for message in messages %}
 
-                <div class="alert alert-warning"
-                    style="text-align:center;font-size: 16px;height: fit-content;width: fit-content;margin-top: 50px;margin-left:300px ;">
-                    <a href="#" style="text-decoration: none;color: black" class="close" data-dismiss="alert">
-                        <!-- &times; -->
-                    </a>
+                <div class="alert alert-warning alert-dismissible" style="text-align: center;">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" ></button>
                     <strong>{{messages[0]}}</strong>
-                </div>
+                  </div>
 
 
                 {% endfor %}

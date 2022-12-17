@@ -271,20 +271,12 @@
 
                 <form class="row g-3" style="margin-left:50px;" method="post" action="/street/street_inquire_resident_info">
                     <ul class="div_right_bar">
-                        <h2>街道居民查询</h2>
+                        <h2 style="margin-left:170px;">街道居民查询</h2>
                        
                         <li><label class="label_input">姓名:</label><input type="text" name="name" class="text_field" />
                         </li>
                         <li><label class="label_input">身份证号:</label><input type="text" name="pid" class="text_field" />
                         </li>
-                        <li><label class="label_input">所在区域:</label><input type="text" name="account" class="text_field" />
-                        </li>
- 
-                    
-   
-                        
-        
-
                         <li><button id="btn_search"
                                 style="cursor:pointer;margin-left: 285px;font-size:16px;letter-spacing:1px;"
                                 type="submit">查找</button></li>
@@ -317,14 +309,13 @@
                 <table class="table table-striped" style="width:900px;margin-left: -30px;">
                     <caption>查询结果</caption>
                     <!-- <div><button id="btn_search"style="margin-left:-15px;cursor:pointer;font-size:16px;letter-spacing:1px;"  type="submit" action="CDC/CDCdownload";>导出结果</button></div> -->
-                    <div class="panel-heading" style="padding: 0px 0px 10px 40px; display: block; font: 16px Georgia,  Times, serif; margin-left: 230px; font-weight: bold; color: rgb(11, 10, 10);">
+                    <div class="panel-heading" style="padding: 0px 0px 10px 40px; display: block; font: 16px Georgia,  Times, serif; margin-left: 295px; font-weight: bold; color: rgb(11, 10, 10);">
                         <h3 style=" padding: 0px 0px 10px 40px; display: block; font: 35px Georgia,  Times, serif; margin-left: -57px; font-weight: bold;color: rgb(11, 10, 10);">查询结果</h3>
-                        <div class="submit_file" style="margin-left:-300px;margin-top: 50px;font-size: 14px;">
+                        <!-- <div class="submit_file" style="margin-left:-300px;margin-top: 50px;font-size: 14px;">
                             <form action="/street/street_inquire_resident_info" method="POST" enctype="multipart/form-data">
-                                <!-- <input type="file" name="file"  /> -->
                                 <input type="submit" value="导出结果" />
                             </form>
-                        </div>
+                        </div> -->
                     </div>
                     <thead>         
                         <tr style="font-size:82%">
