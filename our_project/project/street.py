@@ -21,7 +21,7 @@ from project.auth import( login_required )
 
 bp = Blueprint('street', __name__)
 
-@bp.route('/streetmain',method = ('GET','POST'))
+@bp.route('/streetmain',methods = ('GET','POST'))
 @login_required
 def streetmain():
     user_name=session['user_name']
@@ -42,12 +42,11 @@ def street_single_upload_resident_info():
         come_date = request.form['come_date']
         leave_date = request.form['leave_date']
         #输入上传
-        if len(pid)==0 or len(name)==0 or len(sex)==0 or len(phone)==0 or
-            len(birth)==0 or len(street)==0 or len(come_date)==0 or len(leave_date)==0:
+        if len(pid)==0 or len(name)==0 or len(sex)==0 or len(phone)==0 or len(birth)==0 or len(street)==0 or len(come_date)==0 or len(leave_date)==0:
             flash("请输入完整的居民信息")
         else:
             if check_resident_info(pid,name,phone,sex,birth,street,come_date,leave_date) == True:
-                single_insert_Residence_info(pid,name,phone,sex,birth,street,come_date,leave_date):
+                single_insert_Residence_info(pid,name,phone,sex,birth,street,come_date,leave_date)
                 flash("录入成功！")
             else:
                 flash("信息格式不正确，请重新输入")
@@ -163,7 +162,7 @@ def street_single_upload_site_info():
         principal = request.form['principal']
         contact_num = request.form['contact_num']
         #输入上传
-        if len(site_name)==0 or len(site_code)==0 or len(locat_street)==0 or len(principal)==0 or len(date_time)==0:
+        if len(site_name)==0 or len(site_code)==0 or len(locat_street)==0 or len(principal)==0 or len(contact_num)==0:
             flash("请输入完整的场所信息")
         elif len(site_name)<21 and len(site_code)==4 and len(locat_street)<21 and len(principal)<11 and len(contact_num)==11:
             single_insert_Location_info(site_name,site_code,locat_street,principal,contact_num)

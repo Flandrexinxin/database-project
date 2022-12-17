@@ -31,8 +31,8 @@ def get_user_tuple(account):
     conn = get_db()
     db = conn.cursor()
 
-    sql = 'select * from staff where account="%s"' % (account)
-    db.execute(sql)
+    sql = 'select * from staff where account=%s'# % (account)
+    db.execute(sql,(account,))
     ret = db.fetchall()
 
     db.close()
@@ -77,8 +77,8 @@ def check_account(account, password):
     conn = get_db()  # Connecting to the Database
     db = conn.cursor()  # get the cursor
 
-    sql = 'select * from staff where account="%s"' % (account)
-    db.execute(sql)
+    sql = 'select * from staff where account=%s' #% (account)
+    db.execute(sql,(account,))
     ret = db.fetchall()  # get the result
 
     db.close()  # close cursor
@@ -217,10 +217,10 @@ def get_ill_info_street(street):
 
     sql="""select * from Residence_info
            where community in (select name from Location_info
-           where street="%s")
+           where street=%s)
            and ID in(select ID from NA_test_results where result='阳性')
-           """%(street)
-    cursor.execute(sql)
+           """#%(street)
+    cursor.execute(sql,(street,))
     ret=cursor.fetchall()
     cursor.close()
     close_db(conn)
@@ -234,9 +234,9 @@ def get_ill_info_time(begin_time,end_time):
     sql = """select * from Residence_info
              where ID in(
              select ID from NA_test_results
-               where result='阳性' and test_time>="%s" and test_time<="%s")
-               """ % (begin_time,end_time)
-    cursor.execute(sql)
+               where result='阳性' and test_time>=%s and test_time<=%s)
+               """# % (begin_time,end_time)
+    cursor.execute(sql,(begin_time,end_time))
     ret = cursor.fetchall()
     cursor.close()
     close_db(conn)
@@ -247,8 +247,8 @@ def get_resident_info_name(name):
     conn = get_db()  # Connecting to the Database
     db = conn.cursor()  # get the cursor
 
-    sql = 'select * from Residence_info where name="%s"' % (name)
-    db.execute(sql)
+    sql = 'select * from Residence_info where name=%s' #% (name)
+    db.execute(sql,(name,))
     ret = db.fetchall()  # get the result
 
     db.close()
@@ -261,8 +261,8 @@ def get_resident_info_identity(id):
     conn = get_db()  # Connecting to the Database
     db = conn.cursor()  # get the cursor
 
-    sql = 'select * from Residence_info where id="%s"' % (id)
-    db.execute(sql)
+    sql = 'select * from Residence_info where id=%s'# % (id)
+    db.execute(sql,(id,))
     ret = db.fetchall()  # get the result
     
     db.close()
@@ -275,11 +275,11 @@ def get_resident_info_region(region,rtype):
     conn = get_db()  # Connecting to the Database
     db = conn.cursor()  # get the cursor
     if rtype=='community':
-        sql = 'select * from Residence_info where community="%s"' % (region)
+        sql = 'select * from Residence_info where community=%s' #% (region)
     else:
-        sql='select x.ID,x.name,x.tele_number,sex,birthday,community,enter_date,out_date from Residence_info x,Location_info y where y.street="%s" and x.community=y.name'%(region)
+        sql='select x.ID,x.name,x.tele_number,sex,birthday,community,enter_date,out_date from Residence_info x,Location_info y where y.street=%s and x.community=y.name'#%(region)
     
-    db.execute(sql)
+    db.execute(sql,(region,))
     ret = db.fetchall()  # get the result
     
     db.close()
@@ -315,8 +315,8 @@ def medical_typein(pID,date_time,result,sample_num):
     conn = get_db()
     cursor = conn.cursor()
 
-    sql = 'select * from NA_test_results where test_ID="%s"'%(sample_num)
-    cursor.execute(sql)
+    sql = 'select * from NA_test_results where test_ID=%s'#%(sample_num)
+    cursor.execute(sql,(sample_num,))
     ret = cursor.fetchall()
     if len(ret)!=0:
         cursor.close()
@@ -333,9 +333,9 @@ def medical_cover(pID,date_time,result,sample_num):
     conn = get_db()
     cursor = conn.cursor(prepared=True)
 
-    sql = 'delete from NA_test_results where test_ID="%s"'%(sample_num)  #删除原先的
+    sql = 'delete from NA_test_results where test_ID=%s'#%(sample_num)  #删除原先的
 
-    cursor.execute(sql)
+    cursor.execute(sql,(sample_num,))
     conn.commit()
     #ret = cursor.fetchall()
     cursor.close()
@@ -355,10 +355,10 @@ def get_close_location(id,begin_time,end_time):
              where scan1.Place_ID in(  
              select scan2.Place_ID
              from Scan_code_info scan2
-             where scan2.ID="%s" and scan2.enter_time>="%s" and scan2.enter_time<="%s")
-             and scan1.enter_time>="%s" and scan1.enter_time<="%s")
-             """ % (id,begin_time,end_time,begin_time,end_time)
-    cursor.execute(sql)
+             where scan2.ID=%s and scan2.enter_time>=%s and scan2.enter_time<=%s)
+             and scan1.enter_time>=%s and scan1.enter_time<=%s)
+             """ #% (id,begin_time,end_time,begin_time,end_time)
+    cursor.execute(sql,(id,begin_time,end_time,begin_time,end_time))
     ret = cursor.fetchall()
     cursor.close()
     close_db(conn)
@@ -371,14 +371,14 @@ def get_close_region(test_id):
 
     sql = """select distinct x1.ID,name,tele_number,sex,birthday,community,enter_date,out_date
             from Residence_info x1,NA_test_results y1
-            where y1.test_ID="%s"
+            where y1.test_ID=%s
 		    and x1.community in (select distinct r1.community
 							    from Residence_info r1,NA_test_results tt
 							    where tt.test_ID=y1.test_ID and r1.ID=tt.ID and (r1.enter_date<=tt.test_time+7
 							    or r1.out_date>=tt.test_time-7 or (r1.out_date=null and r1.enter_date<=tt.test_time+7)))
 		    and (x1.out_date+7>=y1.test_time or x1.enter_date-7<=y1.test_time
-            or (x1.out_date=null and x1.enter_date<=y1.test_time+7))""" % (test_id)
-    db.execute(sql)
+            or (x1.out_date=null and x1.enter_date<=y1.test_time+7))""" #% (test_id)
+    db.execute(sql,(test_id,))
     ret = db.fetchall()  # get the result
     
     db.close()
@@ -390,8 +390,8 @@ def medical_if_exists(test_id):
     conn = get_db()
     cursor = conn.cursor()
 
-    sql = 'select * from NA_test_results where test_ID="%s"'%(test_id)
-    cursor.execute(sql)
+    sql = 'select * from NA_test_results where test_ID=%s'#%(test_id)
+    cursor.execute(sql,(test_id,))
     ret = cursor.fetchall()
     if len(ret)!=0:
         cursor.close()
@@ -404,8 +404,8 @@ def medical_if_exists(test_id):
 def get_user_name(the_account):
     conn = get_db()  # Connecting to the Database
     cursor = conn.cursor()  # get the cursor
-    sql = 'select name from staff where account="%s"'%(the_account)
-    cursor.execute(sql)
+    sql = 'select name from staff where account=%s'#%(the_account)
+    cursor.execute(sql,(the_account,))
     ret = cursor.fetchall()
     cursor.close()
     close_db(conn) 
@@ -416,8 +416,8 @@ def delete_user(the_account):
     cursor = conn.cursor()  # get the cursor
     for item in the_account:
         print(item)
-        sql = 'delete from staff where account="%s"'%(item)
-        cursor.execute(sql)
+        sql = 'delete from staff where account=%s'#%(item)
+        cursor.execute(sql,(item,))
         conn.commit()
     cursor.close()
     close_db(conn)      
@@ -425,8 +425,8 @@ def delete_user(the_account):
 def get_account_street(account):
     conn = get_db()
     cursor = conn.cursor()
-    sql = 'select street from staff where account = "%s"'%(account)
-    cursor.execute(sql)
+    sql = 'select street from staff where account = %s'#%(account)
+    cursor.execute(sql,(account,))
     ret = cursor.fetchall()
     cursor.close()
     close_db(conn) 
@@ -437,6 +437,7 @@ def check_resident_info(pid,name,phone,sex,birth,street,come_date,leave_date):
         return True
     else:
         return False 
+
 def change_password(account,new_pwd):
   if new_pwd.isdigit()==False and new_pwd.isalpha()==False:
     conn = get_db() # Connecting to the Database
@@ -453,4 +454,3 @@ def change_password(account,new_pwd):
     return True
   else:
     return False
-
