@@ -14,7 +14,7 @@ from flask import (
 from project.db import(
     single_insert_Residence_info,single_insert_Scan_code_info,single_insert_Location_info,
     get_account_street,get_resident_info_name,get_resident_info_identity,
-    check_resident_info
+    check_resident_info,check_if_place_id_in
 )
 
 from project.auth import( login_required )
@@ -70,13 +70,14 @@ def street_csv_upload_resident_info():
             else:
                 uploaded_file.save(os.path.join('instance', filename))
                 file_path = os.path.join('instance',filename)
-                with open(uploaded_file,'r',encoding='gbk') as csvfile:
+                with open(file_path,'r',encoding='gbk') as csvfile:
                     reader = csv.reader(csvfile)
                     tmp = next(reader)
-                    if len(temp) != 8:
+                    if len(tmp) != 8:
                         flash("上传的文件应当为8列，请检查")
                     else:
                         for row in reader:
+                            print(row)
                             if check_resident_info(row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7]) == True:
                                 single_insert_Residence_info(row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7])
                                 flag=0
@@ -126,14 +127,15 @@ def street_csv_upload_site_code_info():
             flash("请提交文件")
         else:
             file_suf = os.path.splitext(filename)[1]
-            if filename != '.csv':
+            if file_suf != '.csv':
                 flash("仅支持csv文件上传")
             else:
                 uploaded_file.save(os.path.join('instance', filename))
                 file_path = os.path.join('instance',filename)
-                with open(uploaded_file,'r',encoding='gbk') as csvfile:
+                with open(file_path,'r',encoding='gbk') as csvfile:
                     reader = csv.reader(csvfile)
                     tmp = next(reader)
+                    print(tmp)
                     if len(tmp) != 3:
                         flash("上传到文件应当为3列，请检查")
                     else:
@@ -165,8 +167,11 @@ def street_single_upload_site_info():
         if len(site_name)==0 or len(site_code)==0 or len(locat_street)==0 or len(principal)==0 or len(contact_num)==0:
             flash("请输入完整的场所信息")
         elif len(site_name)<21 and len(site_code)==4 and len(locat_street)<21 and len(principal)<11 and len(contact_num)==11:
-            single_insert_Location_info(site_name,site_code,locat_street,principal,contact_num)
-            flash("录入成功！")
+            if check_if_place_id_in(site_code) == True:
+                flash("该场所码已存在")
+            else:
+                single_insert_Location_info(site_name,site_code,locat_street,principal,contact_num)
+                flash("录入成功！")
         else:
             flash("信息格式不正确，请重新输入")
     return render_template('street/street_single_upload_site_info.html',user_name = user_name)
@@ -184,12 +189,12 @@ def street_csv_upload_site_info():
             flash("请提交文件")
         else:
             file_suf = os.path.splitext(filename)[1]
-            if filename != '.csv':
+            if file_suf != '.csv':
                 flash("仅支持csv文件上传")
             else:
                 uploaded_file.save(os.path.join('instance', filename))
                 file_path = os.path.join('instance',filename)
-                with open(uploaded_file,'r',encoding='gbk') as csvfile:
+                with open(file_path,'r',encoding='gbk') as csvfile:
                     reader = csv.reader(csvfile)
                     tmp = next(reader)
                     if len(tmp) != 5:
@@ -197,10 +202,15 @@ def street_csv_upload_site_info():
                     else:
                         for row in reader:
                             if len(row[0])<21 and len(row[1])==4 and len(row[2])<21 and len(row[3])<11 and len(row[4])==11:
-                                single_insert_Location_info(row[0],row[1],row[2],row[3])
-                                flag = 0
+                                if check_if_place_id_in(row[0],row[1],row[2],row[3],row[4]) == True:
+                                    single_insert_Location_info(row[0],row[1],row[2],row[3],row[4])
+                                    flag = 0
+                                else:
+                                    flag = 1
+                                    flash("文件中不应含已上传过的场所码，导入中断，请检查")
+                                    break
                             else:
-                                flag = 0
+                                flag = 1
                                 flash("存在信息格式不正确，导入终端，请检查")
                                 break
                         if flag == 0:
@@ -214,31 +224,44 @@ def street_csv_upload_site_info():
 def street_inquire_resident_info():
     user_name=session['user_name']
     if request.method == 'POST':
+        print("impost")
         name = request.form['name']
         pid = request.form['pid']
         account_name = session['account']
         street = get_account_street(account_name)
-
+        print(account_name)
         if len(name)==0 and len(pid)==0:
             flash("请输入查询信息")
         elif len(pid)==0 and len(name)<11:#姓名查询
+            print("okk")
             resident_info = get_resident_info_name(name)
             answer_len = len(resident_info)
+            print(answer_len)
+            # print(resident_info[0][5])
+            print(type(street))
+            print(street[0][0])
+            print(type(street[0][0]))
+            print(resident_info)
             if answer_len == 1:
-                if resident_info[5] != street:
+                if resident_info[0][5] != street[0][0]:
                     flash("该人员不属于您所管辖的街道，无法查询")
                 else:
                     return render_template('street/street_inquire_resident_info.html',user_name = user_name,answer_len = answer_len,resident_info = resident_info)
+            elif answer_len == 0:
+                flash("没有查询到该居民信息")
             else:
                 flash("查询存在异常，请重试")
         elif len(name)==0 and len(pid)==18:#身份证号查询
             resident_info = get_resident_info_identity(pid)
             answer_len = len(resident_info)
+            print(resident_info)
             if answer_len == 1:
-                if resident_info[5] != street:
+                if resident_info[0][5] != street:
                     flash("该人员不属于您所管辖的街道，无法查询")
                 else:
                     return render_template('street/street_inquire_resident_info.html',user_name = user_name,answer_len = answer_len,resident_info = resident_info)
+            elif answer_len == 0:
+                flash("没有查询到该居民信息")
             else:
                 flash("查询存在异常，请重试")
         elif (len(pid)==0 and len(name)>10) or (len(name)==0 and len(pid)!=18):
@@ -248,4 +271,3 @@ def street_inquire_resident_info():
         
     return render_template('/street/street_inquire_resident_info.html',user_name = user_name)
                     
-        
