@@ -422,16 +422,6 @@ def delete_user(the_account):
     cursor.close()
     close_db(conn)      
 
-def get_account_street(account):
-    conn = get_db()
-    cursor = conn.cursor()
-    sql = 'select street from staff where account = %s'#%(account)
-    cursor.execute(sql,(account,))
-    ret = cursor.fetchall()
-    cursor.close()
-    close_db(conn) 
-    return ret    
-
 def check_resident_info(pid,name,phone,sex,birth,street,come_date,leave_date):
     if len(pid)== 18 and len(name)<=10 and len(phone)==11 and (sex=='男' or sex=='女') and len(street)<21:
         return True
@@ -454,3 +444,26 @@ def change_password(account,new_pwd):
     return True
   else:
     return False
+
+def get_account_street(account_name):
+    conn = get_db()  # Connecting to the Database
+    cursor = conn.cursor()  # get the cursor
+    sql = 'select street from staff where account=%s'#%(account_name)
+    cursor.execute(sql,(account_name,))
+    ret = cursor.fetchall()
+    cursor.close()
+    close_db(conn) 
+    return ret
+
+def check_if_place_id_in(place_id):
+    conn = get_db()  # Connecting to the Database
+    cursor = conn.cursor()  # get the cursor
+    sql = 'select count(*) from Location_info where Place_ID=%s'#%(place_id)
+    cursor.execute(sql,(place_id,))
+    ret = cursor.fetchall()
+    cursor.close()
+    close_db(conn) 
+    if ret != 0:
+        return True
+    else:
+        return False
