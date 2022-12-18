@@ -70,13 +70,13 @@ CDC/inquire：这个页面实现疾控中心工作人员对居民信息的查询
     test_ID char(10) PRIMARY KEY//检测样本编号，char型，8位                         
 )
 
-table Scan_code_info( //场所码扫码信息表 1NF
+* table Scan_code_info( //场所码扫码信息表 1NF
     Place_ID char(4) NOT NULL,//场所编码，char型，
     ID char(18) NOT NULL,//居民身份证号，char型，18位
     enter_time datetime NOT NULL//进入时间，时分秒，datetime型，精确到秒
 )
 
-table Residence_info(  //居民居住信息表 1NF
+* table Residence_info(  //居民居住信息表 1NF
     ID char(18) NOT NULL,//居民身份证号，char型，18位
     name varchar(10), //姓名，varchar型，最长10位
     tele_number char(11) NOT NULL, //联系方式，char型，11位
@@ -87,7 +87,7 @@ table Residence_info(  //居民居住信息表 1NF
     out_date date//离开当前居住地日期，date型，精确到日
 )
 
-table Location_info( //小区/场所信息表 3NF
+* table Location_info( //小区/场所信息表 3NF
     name varchar(20) NOT NULL,//名称，varchar型，最长20位
     Place_ID char(4) PRIMARY KEY,//场所编码，char型，
     street varchar(20) NOT NULL,//所在街道，varchar型，最长20位
@@ -95,7 +95,7 @@ table Location_info( //小区/场所信息表 3NF
     tele_number char(11) NOT NULL//联系方式，char型，11位 
 )
 
-table staff(//用户表 3NF
+* table staff(//用户表 3NF
     account char(8) PRIMARY KEY,//账号，char型，
     password varchar(200) NOT NULL,//密码，varchar型，
     type varchar(50),//人员类型，super manager,medical staff,street manager,CDC staff
@@ -110,10 +110,11 @@ table staff(//用户表 3NF
 * Scan_code_info 包含场所码扫码信息 **24930** 条
 * staff 中保留的两个super manager账号及密码信息分别如下：
 ('92531087', 'VcLjXdoR'), ('46123579', 'O9WqdmTZ')
-* Location_info 包含小区/场所信息共 **147** 条，其中包括：
+* Location_info 包含小区/场所信息共 **147** 条，场所ID构成：共四位，前两位表示街道，街道编号依次为11，12，...，21，22...,31...，第三位表示是小区还是公共场所，1代表小区，2代表公共场所，第四位为编号，小区和公共场所连着排，不重起（会在下面列出的第一个街道中做举例，为了文档的简洁，就不全部都写上了。）
+其中包括：
 *  **21** 个 街道，分别是：安定门街道, 建国门街道, 朝阳门街道, 东直门街道, 东华门街道, 和平里街道, 北新桥街道, 交道口街道, 景山街道, 东四街道, 月坛街道, 德胜街道, 新街口街道, 西长安街街道, 展览路街道, 新镇街道, 石楼镇, 拱辰街道, 西潞街道, 永顺镇, 梨园镇。
 * 每个街道分别包括5个小区和2个公共场所，对应如下（ **前五个为小区与Residence_info表中community对应，后两个为公共场所** ）：
-* 安定门街道：巷上嘉园, 中轴国际, 中景濠庭, 中涤胡同甲2号院, 凯景铭座, 北京SKP, 国贸商城
+* 安定门街道：巷上嘉园（1111）, 中轴国际（1112）, 中景濠庭（1113）, 中涤胡同甲2号院（1114）, 凯景铭座（1115）, 北京SKP（1126）, 国贸商城（1127）
 * 建国门街道：北锣鼓巷, 宝钞苑, 花园胡同, 华府景园, 湖景苑, 世纪金源, 太古里
 * 朝阳门街道：西水井胡同, 朝阳首府, 芳草苑公寓, 东营房八条, 迪阳公寓, 合生汇, 大悦城
 * 东直门街道：东环广场, 正东国际大厦, 元嘉国际公寓, 西香河园, 新中西里, 荟聚, 首创奥特莱斯
