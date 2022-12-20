@@ -153,6 +153,8 @@ def csv_insert_Scan_code_info(path):
 def single_insert_Residence_info(id,name,tele_number,sex,birthday,community,enter_date,out_date):
     conn = get_db()
     cursor = conn.cursor()
+    if out_date=='':
+        out_date=None
     sql = 'insert into Residence_info(ID,name,tele_number,sex,birthday,community,enter_date,out_date)' \
           ' values(%s,%s,%s,%s,%s,%s,%s,%s)'
     cursor.execute(sql, (id,name,tele_number,sex,birthday,community,enter_date,out_date))
@@ -458,12 +460,40 @@ def get_account_street(account_name):
 def check_if_place_id_in(place_id):
     conn = get_db()  # Connecting to the Database
     cursor = conn.cursor()  # get the cursor
-    sql = 'select count(*) from Location_info where Place_ID=%s'#%(place_id)
+    sql = 'select * from Location_info where Place_ID=%s'#%(place_id)
     cursor.execute(sql,(place_id,))
     ret = cursor.fetchall()
     cursor.close()
+    close_db(conn)
+    print("ret:",ret) 
+    if len(ret) != 0:
+        return True
+    else:
+        return False
+def check_region(user_account,site_id):
+    conn = get_db()  # Connecting to the Database
+    cursor = conn.cursor()  # get the cursor
+    sql = 'select street from Location_info where Place_ID=%s'
+    cursor.execute(sql,(site_id,))
+    street = cursor.fetchall()
+    sql = 'select street from staff where account=%s'
+    cursor.execute(sql,(user_account,))
+    user_street = cursor.fetchall()
+
+    cursor.close()
     close_db(conn) 
-    if ret != 0:
+    if street == user_street:
+        return True
+    else:
+        return False
+def check_street(user_account,the_street):
+    conn = get_db()  # Connecting to the Database
+    cursor = conn.cursor()  # get the cursor
+    sql = 'select street from staff where account=%s'
+    cursor.execute(sql,(user_account,))
+    user_street = cursor.fetchall()
+    print("user_Street:",user_street[0][0])
+    if user_street[0][0] == the_street:
         return True
     else:
         return False

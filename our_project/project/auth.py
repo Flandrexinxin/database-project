@@ -30,6 +30,7 @@ def login():
         if error is None:
             session.clear()
             session['account'] = account
+            session['password'] = password
             user_name = get_user_name(account)
             user_name = user_name[0][0]
             print(user_name)

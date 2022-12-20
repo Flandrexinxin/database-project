@@ -6,7 +6,7 @@ from werkzeug.utils import secure_filename
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
-from project.db import(medical_check,medical_typein,medical_cover,medical_check_csv)
+from project.db import(medical_check,medical_typein,medical_cover,medical_check_csv,check_account)
 from project.auth import(
     login_required
 )
@@ -17,8 +17,13 @@ bp = Blueprint('medical', __name__)
 @login_required
 def medicalmain():
     user_name=session['user_name']
-    print("imhere")
-    return render_template('medical/medicalmain.html',user_name=user_name)
+    account=session['account']
+    password=session['password']
+    type = check_account(account,password)
+    if check_account(account,password)!= 'medical staff':
+        return render_template('auth/login.html')
+    else:
+        return render_template('medical/medicalmain.html',user_name=user_name)
 
 @bp.route('/medical/medical_single_upload',methods = ('GET','POST'))
 @login_required
@@ -72,7 +77,7 @@ def medical_csv_upload():
             else:
                 uploaded_file.save(os.path.join('instance', filename))
                 file_path = os.path.join('instance',filename)
-                with open(file_path,'r',encoding='gbk') as csvfile:
+                with open(file_path,'r') as csvfile:
                     reader = csv.reader(csvfile)
                     print("im come in")
                     index = next(reader)#去除索引

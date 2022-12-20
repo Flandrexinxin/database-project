@@ -139,11 +139,14 @@ def CDCinquire_close_region():
 @bp.route('/CDC/CDCinquire_close',methods=('GET','POST'))
 @login_required
 def CDCinquire_close():
+    print(12311111)
     user_name=session['user_name']
     if request.method == 'POST':
+        
         identity = request.form['identity']          #identity、begin_time、end_time均为required
         begin_time = request.form['begin_time']
         end_time = request.form['end_time']
+        print("haha?")
         error = None
         close_people_info = get_close_location(identity,begin_time,end_time)
         length=len(close_people_info)
