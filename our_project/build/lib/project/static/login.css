@@ -1,0 +1,115 @@
+body {
+
+  
+    background-size: 100%;
+ 
+    background-image: linear-gradient(to right,#bbd2c5,#536976 );
+    /* #f7f8f8,#acbb78 */
+}
+ 
+
+.header {
+    font-size: 50px;
+    font-weight: 1600;
+    text-align: center;
+    line-height: 200px;
+    color: #3c3f38;
+    font-family: 幼圆;
+    letter-spacing:2px;
+}
+
+#container{
+    display:flex;
+  
+}
+
+#login_frame {
+
+    flex: 1; 
+
+   
+ 
+    /* background-color: #bbd2c5; */
+    /* rgba(252, 255, 251, 0.5); */
+ 
+    border-radius: 10px;
+    text-align: center;
+}
+ 
+form p > * {
+    display: inline-block;
+    vertical-align: middle;
+}
+ 
+
+.label_input {
+    font-size: 18px;
+    font-family: 新宋体;
+ 
+    width: 80px;
+    height: 28px;
+    line-height: 28px;
+    text-align: center;
+    /* font-weight: 600;  */
+    letter-spacing: 2px;
+    color: white;
+    background-color: #606b63;
+    border-radius: 5px;
+}
+ 
+.text_field {
+    width: 257px;
+    height: 28px;
+    border-radius: 5px;
+    border: 0;
+    margin-left: 8px;
+}
+ 
+#btn_login {
+    font-weight: 600;
+    font-size: 18px;
+    font-family: 新宋体;
+    letter-spacing: 3px;
+    width: 90px;
+    height: 28px;
+    line-height: 28px;
+    text-align: center;
+ 
+    color: rgb(240, 235, 235);
+    background-color: #242924;
+    border-radius: 6px;
+    border: 0;
+ 
+    float: right;
+   
+}
+
+
+ 
+#forget_pwd {
+    font-size: 15px;
+    color: rgb(52, 53, 54);
+    font-family:黑体;
+    text-decoration: none;
+    position: relative;
+    float: left;
+    top: 5px;
+ 
+}
+ 
+#forget_pwd:hover {
+    color: #bbd2c5;
+    text-decoration: underline;
+}
+ 
+#login_control {
+    padding:  28px;
+}
+
+.flash_message{
+    background-color: #cdada4;
+    
+    box-shadow: 0px 1px 4px #988d8d;
+    border-radius: 5px;
+    height:30px;
+}

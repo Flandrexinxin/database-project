@@ -1,0 +1,11 @@
+flask
+functools
+werkzeug.utils
+werkzeug.security
+mysql.connector
+string
+random
+csv
+pandas
+datetime
+os

@@ -1,0 +1,349 @@
+* {
+    margin: 0;
+     padding: 0;
+}
+
+.top{
+    /* 设置宽度高度背景颜色 */
+    height: auto; /*高度改为自动高度*/
+    width:100%;
+    margin-left: 0;
+    background:rgb(189, 181, 181);
+    position: fixed; /*固定在顶部*/
+    top: 0;/*离顶部的距离为0*/
+    margin-bottom: 5px;
+}
+.top ul{
+    /* 清除ul标签的默认样式 */
+    width: auto;/*宽度也改为自动*/
+    list-style-type: none;
+    white-space:nowrap;
+    overflow: hidden;
+    margin-left: 5%;
+    /* margin-top: 0;          */
+    padding: 0;
+
+}
+.top li {
+    float:left; /* 使li内容横向浮动，即横向排列  */
+    margin-right:2%;  /* 两个li之间的距离*/
+    position: relative;
+    overflow: hidden;
+}
+
+.top li a{
+   /* 设置链接内容显示的格式*/
+    display: block; /* 把链接显示为块元素可使整个链接区域可点击 */
+    color:white;
+    text-align: center;
+    padding: 3px;
+    overflow: hidden;
+    text-decoration: none; /* 去除下划线 */
+    font: 20px Georgia,  Times, serif;
+    
+    
+}
+.top li a:hover{
+    /* 鼠标选中时背景变为黑色 */
+    background-color: #111;
+}
+.top ul li ul{
+    /* 设置二级菜单 */
+    margin-left: -0.2px;
+    background:rgb(189, 181, 181);
+    position: relative;
+    display: none; /* 默认隐藏二级菜单的内容 */
+
+}
+.top ul li ul li{
+    /* 二级菜单li内容的显示 */
+    
+    float:none;
+    text-align: center;
+}
+.top ul li:hover ul{
+    /* 鼠标选中二级菜单内容时 */
+    display: block;
+}
+body{
+    background:#eff3f5;
+}
+
+
+.row{
+    display: flex;
+}
+
+div{
+    display: block;
+}
+
+.nav_left{
+    display: block;
+    padding-top: 100px;
+    padding-left: 40px;
+    width: fit-content;
+    height: fit-content;
+
+}
+.nav_left_bar{
+    font: 12px Georgia,  Times, serif;
+   
+    box-shadow: 0px 0px 2px 1px #030f01;
+ 
+
+    background-color: rgb(26, 83, 5);
+    
+    border-radius: 5px;
+  
+
+}
+
+.nav_left_bar> li{
+    list-style: none;
+}
+
+.nav_left_bar> li > h2{
+    color:rgb(251, 253, 255);
+   
+    text-align: center;
+    padding: 20px;
+
+}
+.nav_left_bar > li > a{
+    color:black;
+    font-size: large;
+    text-align: center;
+   
+    display: block;
+    padding: 10px 15px;
+    background-color: white;
+    border: 1px solid rgb(26, 83, 5);
+    text-decoration: none;
+    box-shadow: 0px 0px 2px 1px #919191;
+    
+    
+}
+.nav_left_bar > li > a:hover{
+    background-color:rgb(181, 181, 181);
+}
+.nav_left_bar > li > a:visited{
+    background-color:rgb(163, 161, 161);
+}
+
+.container {
+    display: flex;
+    flex-direction: column;  /* 按照列column(垂直方向)排列*/
+    overflow: auto;
+    /*------------*/
+    /* margin: 30px 15px 30px 0px; */
+    border-radius: 5px;
+
+    /*------------*/
+
+}
+
+.div_right{
+    flex: 70%;
+    margin-left: 10%;
+    margin-right: 10%;
+    padding-top: 150px;
+
+
+}
+
+.div_right_bar{
+    
+    margin-left:auto;
+ 
+    margin-right:auto;
+        background: #eff3f5;
+ 
+         padding: 25px 15px 25px 10px;
+ 
+         font: 12px Georgia,  Times, serif;
+ 
+         color: rgb(10, 9, 9);
+ 
+         /* text-shadow: 1px 1px 1px #FFF; */
+ 
+         /* border:1px solid #E4E4E4; */
+         /* border-radius: 5px; */
+
+}
+
+.div_right_bar h2 {
+ 
+    font-size: 300%;
+
+    padding: 0px 0px 10px 40px;
+
+    display: block;
+
+    font-weight: bold;
+
+    /* border-bottom:1px solid #E4E4E4; */
+
+    /* margin: -10px -15px 30px -10px; */
+
+    margin-left: 155px;
+
+    color: rgb(11, 10, 10);
+
+
+}
+
+.div_right_bar label{
+    display:inline-block; width: 10em; margin-right: 1em; text-align: right; 
+}
+
+.div_right_bar li{
+    display: block;
+ 
+    
+    margin-top: 20px;
+}
+
+
+.label_input{
+
+
+       
+        font-size: 16px;
+        
+ 
+        padding-right: 10px;
+ 
+         margin-top: 10px;
+ 
+         color: rgb(16, 15, 15);
+
+}
+.text_field{
+    border: 1px solid #DADADA;
+ 
+         color: rgb(28, 27, 27);
+ 
+         height: 30px;
+ 
+         margin-bottom: 16px;
+ 
+         margin-right: 6px;
+ 
+         margin-top: 2px;
+ 
+         outline: 0 none;
+ 
+         padding: 3px 3px 3px 5px;
+ 
+         width: 50%;
+ 
+         font-size: 14px;
+ 
+         line-height:15px;
+ 
+         box-shadow: inset 0px 1px 4px #ECECEC;
+ 
+         -moz-box-shadow: inset 0px 1px 4px #ECECEC;
+ 
+         -webkit-box-shadow: inset 0px 1px 4px #ECECEC
+
+}
+
+.text_field2{
+    border: 1px solid #DADADA;
+ 
+         color: rgb(28, 27, 27);
+ 
+         height: 30px;
+ 
+         margin-bottom: 16px;
+ 
+         margin-right: 6px;
+ 
+         margin-top: 2px;
+ 
+         outline: 0 none;
+ 
+         padding: 3px 3px 3px 5px;
+ 
+         width: 30%;
+ 
+         font-size: 14px;
+ 
+         line-height:15px;
+ 
+         box-shadow: inset 0px 1px 4px #ECECEC;
+ 
+         -moz-box-shadow: inset 0px 1px 4px #ECECEC;
+ 
+         -webkit-box-shadow: inset 0px 1px 4px #ECECEC
+
+}
+
+
+
+
+.div_right_bar select{
+    border: 1px solid #DADADA;
+ 
+    color: rgb(6, 6, 6);
+ 
+    padding: 3px 3px 3px 5px;
+ 
+         text-overflow: '';
+ 
+         width: 20%;
+ 
+         height: 35px;
+ 
+         line-height: 25px;
+         box-shadow: inset 0px 1px 4px #ECECEC;
+ 
+         -moz-box-shadow: inset 0px 1px 4px #ECECEC;
+ 
+         -webkit-box-shadow: inset 0px 1px 4px #ECECEC
+
+}
+
+.div_right_bar button {
+    
+    margin-left: 50%;
+    margin-top: 20px;
+    background: rgb(73, 76, 77);
+
+    border: none;
+    padding: 10px 25px 10px 25px;
+
+    color: #FFF;
+
+    box-shadow: 1px 1px 5px #B6B6B6;
+
+    border-radius: 3px;
+
+    /* text-shadow: 1px 1px 1px #9E3F3F; */
+
+    cursor: pointer;
+
+}
+
+.div_right_bar button:hover {
+
+    background: rgb(94, 96, 96)
+
+}
+
+
+.div_down{
+    flex: 70%;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 5%;
+}
+
+.flash_message{
+    background-color: #cdada4;
+    
+    box-shadow: 0px 1px 4px #988d8d;
+    border-radius: 5px;
+}

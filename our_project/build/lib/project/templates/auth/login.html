@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>登录页面</title>
+
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename = '../../static/login.css')}}" />
+
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="header">疫情管理系统</h1>
+
+        <div id="login_frame" style="margin:0 auto;width: 400px;height: 160px;padding: 13px;">
+
+            <form method="POST" action="/">
+                <p><label class="label_input">账号</label><input type="text"  name="account" id="L_username" required
+                        class="text_field" /></p>
+                <p><label class="label_input">密码</label><input type="password"  name="password" id="L_password" required
+                        class="text_field" /></p>
+
+                <div id="login_control">
+                    <button id="btn_login" style="cursor:pointer" type="submit">登录</button>
+
+                    <input type="hidden" name="next" value="" id="skip">
+
+                    <a href="/change_pwd" class="forget_pwd" style="margin-left:-165px;">
+                        <span>修改密码</span></a>
+                    <p style="font-family:幼圆;font-size: 17px;text-align: center;margin-left:-40px;margin-top: 40px; font-weight: 200;white-space:nowrap">提示:为了您的账户安全，请在首次登陆后及时修改初始密码</p>
+                    <div >
+                        {% with messages = get_flashed_messages() %}
+                            {% if messages %}       
+                                {% for message in messages %}
+                                  <p class="flash_message" align="center" style="margin:0 auto; margin-top:20px ;width: 200px;height: 20px; padding:15px;border-radius: 5px;"> {{ message }}</p> 
+                                  {% endfor %}                
+                                {% endif %}
+                            {% endwith %}
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</body>
+
+</html>
